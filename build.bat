@@ -36,7 +36,7 @@ if not defined DevEnvDir (
     call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
 )
 
-set solutionFile="RetroEngine.sln"
+set solutionFile="SaturnEngine.sln"
 msbuild /t:Build /p:Configuration=Debug /p:Platform=x64 %solutionFile%
 
 :Done
