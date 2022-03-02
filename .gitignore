@@ -1,0 +1,14 @@
+Makefile
+bin/
+bin-int/
+.vs/
+*.workspace
+*.project
+*.mk
+*.sln
+*.vcxproj
+*.user
+*.filters
+*.log
+*.def
+*.obj
