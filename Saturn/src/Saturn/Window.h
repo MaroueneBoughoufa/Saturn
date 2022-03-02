@@ -1,11 +1,11 @@
 #pragma once
 
-#include "retropch.h"
+#include "stpch.h"
 
-#include "Retro/Core.h"
-#include "Retro/Events/Event.h"
+#include "Saturn/Core.h"
+#include "Saturn/Events/Event.h"
 
-namespace Retro
+namespace Saturn
 {
 	struct WindowProps
 	{
@@ -22,7 +22,7 @@ namespace Retro
 	};
 
 	// Interface representing a desktop system based Window
-	class RETRO_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

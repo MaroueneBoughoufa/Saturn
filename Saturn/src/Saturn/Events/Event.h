@@ -1,10 +1,10 @@
 #pragma once
 
-#include "retropch.h"
+#include "stpch.h"
 
-#include "Retro/Core.h"
+#include "Saturn/Core.h"
 
-namespace Retro
+namespace Saturn
 {
 	/*
 	* Events are currently in blocking, meaning when an event occurs it
@@ -38,7 +38,7 @@ namespace Retro
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class RETRO_API Event
+	class Event
 	{
 	public:
 		bool Handled = false;

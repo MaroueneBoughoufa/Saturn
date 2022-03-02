@@ -1,7 +1,7 @@
-#include <RetroEngine.h>
+#include <Saturn.h>
 #include <ImGui/imgui.h>
 
-class ExampleLayer : public Retro::Layer
+class ExampleLayer : public Saturn::Layer
 {
 public:
 	ExampleLayer()
@@ -10,18 +10,18 @@ public:
 
 	void OnUpdate() override
 	{
-		if (Retro::Input::IsKeyPressed(KEY_TAB))
+		if (Saturn::Input::IsKeyPressed(KEY_TAB))
 		{
-			Rtro_TRACE("Tab key pressed");
+			ST_TRACE("Tab key pressed");
 		}
 	}
 
-	void OnEvent(Retro::Event& event) override
+	void OnEvent(Saturn::Event& event) override
 	{
-		if (event.GetEventType() == Retro::EventType::KeyPressed)
+		if (event.GetEventType() == Saturn::EventType::KeyPressed)
 		{
-			Retro::KeyPressedEvent& e = (Retro::KeyPressedEvent&)event;
-			Rtro_TRACE("{0}", (char)e.GetKeyCode());
+			Saturn::KeyPressedEvent& e = (Saturn::KeyPressedEvent&)event;
+			ST_TRACE("{0}", (char)e.GetKeyCode());
 		}
 	}
 
@@ -33,7 +33,7 @@ public:
 	}
 };
 
-class Sandbox : public Retro::Application
+class Sandbox : public Saturn::Application
 {
 public:
 	Sandbox()
@@ -47,7 +47,7 @@ public:
 	}
 };
 
-Retro::Application* Retro::CreateApplication()
+Saturn::Application* Saturn::CreateApplication()
 {
 	return new Sandbox();
 }

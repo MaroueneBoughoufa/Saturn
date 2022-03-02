@@ -4,12 +4,12 @@
 #include "LayerStack.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
-#include "Retro/Window.h"
-#include "Retro/ImGui/ImGuiLayer.h"
+#include "Saturn/Window.h"
+#include "Saturn/ImGui/ImGuiLayer.h"
 
-namespace Retro
+namespace Saturn
 {
-	class RETRO_API Application
+	class Application
 	{
 	public:
 		Application();

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "retropch.h"
+#include "stpch.h"
 
 #include "Event.h"
 
-namespace Retro
+namespace Saturn
 {
-	class RETRO_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -28,7 +28,7 @@ namespace Retro
 		float m_MouseX, m_MouseY;
 	};
 
-	class RETRO_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -50,7 +50,7 @@ namespace Retro
 		float m_XOffset, m_YOffset;
 	};
 
-	class RETRO_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -63,7 +63,7 @@ namespace Retro
 		int m_Button;
 	};
 
-	class RETRO_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -79,7 +79,7 @@ namespace Retro
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class RETRO_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

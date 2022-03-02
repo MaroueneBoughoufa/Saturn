@@ -1,13 +1,13 @@
-#include "retropch.h"
-#include "Retro/Core.h"
+#include "stpch.h"
+#include "Saturn/Core.h"
 
-#ifdef Rtro_PLATFORM_WINDOWS
+#ifdef ST_PLATFORM_WINDOWS
 #include "Win32Input.h"
 
-#include "Retro/Application.h"
+#include "Saturn/Application.h"
 #include <GLFW/glfw3.h>
 
-namespace Retro
+namespace Saturn
 {
 	Input* Input::s_Instance = new Win32Input();
 

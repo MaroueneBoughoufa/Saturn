@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Retro/Core.h"
-#include "Retro/Events/Event.h"
+#include "Saturn/Core.h"
+#include "Saturn/Events/Event.h"
 
-namespace Retro
+namespace Saturn
 {
-	class RETRO_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");

@@ -1,18 +1,18 @@
-#include "retropch.h"
+#include "stpch.h"
 
 #include "Application.h"
 #include "Input.h"
 
 #include <Glad/glad.h>
 
-namespace Retro
+namespace Saturn
 {
 
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
 	{
-		Rtro_CORE_ASSERT(!s_Instance, "Application already exists!000");
+		ST_CORE_ASSERT(!s_Instance, "Application already exists!000");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());

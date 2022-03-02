@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Retro/Core.h"
+#include "Saturn/Core.h"
 
-#ifdef Rtro_PLATFORM_WINDOWS
-#include "Retro/Window.h"
+#ifdef ST_PLATFORM_WINDOWS
+#include "Saturn/Window.h"
 
 #include <GLFW/glfw3.h>
 
-namespace Retro
+namespace Saturn
 {
 	class Win32Window : public Window
 	{

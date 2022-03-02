@@ -1,10 +1,10 @@
 #pragma once
-#include "Retro/Core.h"
+#include "Saturn/Core.h"
 
-#ifdef Rtro_PLATFORM_WINDOWS
-#include "Retro/Input.h"
+#ifdef ST_PLATFORM_WINDOWS
+#include "Saturn/Input.h"
 
-namespace Retro
+namespace Saturn
 {
 	class Win32Input : public Input
 	{

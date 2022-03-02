@@ -1,22 +1,22 @@
-#include "retropch.h"
-#include "Retro/Core.h"
+#include "stpch.h"
+#include "Saturn/Core.h"
 
-#ifdef Rtro_PLATFORM_WINDOWS
+#ifdef ST_PLATFORM_WINDOWS
 #include "Win32Window.h"
 
-#include "Retro/Events/ApplicationEvent.h"
-#include "Retro/Events/MouseEvent.h"
-#include "Retro/Events/KeyEvent.h"
+#include "Saturn/Events/ApplicationEvent.h"
+#include "Saturn/Events/MouseEvent.h"
+#include "Saturn/Events/KeyEvent.h"
 
 #include <Glad/glad.h>
 
-namespace Retro
+namespace Saturn
 {
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		Rtro_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
+		ST_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
 	Window* Window::Create(const WindowProps& props)
@@ -40,13 +40,13 @@ namespace Retro
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		Rtro_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		ST_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
-			Rtro_CORE_ASSERT(success, "Could not initialize GLFW!");
+			ST_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
@@ -55,7 +55,7 @@ namespace Retro
 		glfwMakeContextCurrent(m_Window);
 
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		Rtro_CORE_ASSERT(status, "Failed to initialize Glad!");
+		ST_CORE_ASSERT(status, "Failed to initialize Glad!");
 		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);

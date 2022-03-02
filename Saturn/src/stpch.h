@@ -12,10 +12,10 @@
 #include <unordered_map>
 #include <unordered_set>
 
-// Retro precompiled headers
-#include "Retro/Log.h"
+// Saturn precompiled headers
+#include "Saturn/Log.h"
 
 // Include platform specific headers here
-#ifdef Rtro_PLATFORM_WINDOWS
+#ifdef ST_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

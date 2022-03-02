@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Retro/Core.h"
+#include "Saturn/Core.h"
 
-namespace Retro
+namespace Saturn
 {
-	class RETRO_API Input
+	class Input
 	{
 	public:
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }

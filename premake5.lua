@@ -13,14 +13,14 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["spdlog"] = "Saturn/vendor/spdlog/include"
 IncludeDir["glm"] = "Saturn/vendor/glm"
-IncludeDir["GLFW"] = "Saturn/vendor/GLFW/include"
-IncludeDir["Glad"] = "Saturn/vendor/Glad/include"
-IncludeDir["ImGui"] = "Saturn/vendor/ImGui"
+IncludeDir["GLFW"] = "Saturn/vendor/glfw/include"
+IncludeDir["Glad"] = "Saturn/vendor/glad/include"
+IncludeDir["ImGui"] = "Saturn/vendor/imgui"
 
 group "Dependencies"
-	include "Saturn/vendor/GLFW"
-	include "Saturn/vendor/Glad"
-	include "Saturn/vendor/ImGui"
+	include "Saturn/vendor/glfw"
+	include "Saturn/vendor/glad"
+	include "Saturn/vendor/imgui"
 group ""
 
 project "Saturn"
@@ -33,8 +33,8 @@ project "Saturn"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "retropch.h"
-	pchsource "%{prj.name}/src/retropch.cpp"
+	pchheader "stpch.h"
+	pchsource "%{prj.name}/src/stpch.cpp"
 	
 	files {
 		"%{prj.name}/src/**.h",
@@ -47,7 +47,6 @@ project "Saturn"
 	
 	includedirs {
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.GLFW}",
@@ -56,9 +55,9 @@ project "Saturn"
 	}
 
 	links {
-		"GLFW",
-		"Glad",
-		"ImGUi",
+		"glfw",
+		"glad",
+		"imgui",
 		"opengl32.lib"
 	}
 
@@ -71,6 +70,8 @@ project "Saturn"
 		}
 
 	filter "system:linux"
+		systemversion "latest"
+
 		defines {
 			"ST_PLATFORM_LINUX",
 			"GLFW_INCLUDE_NONE"
@@ -131,6 +132,8 @@ project "Sandbox"
 		}
 
 	filter "system:linux"
+		systemversion "latest"
+
 		defines {
 			"ST_PLATFORM_LINUX"
 		}

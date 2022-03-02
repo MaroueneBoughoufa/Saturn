@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Retro/Core.h"
+#include "Saturn/Core.h"
 
-#ifdef Rtro_PLATFORM_LINUX
-#include "Retro/Window.h"
+#ifdef ST_PLATFORM_LINUX
+#include "Saturn/Window.h"
 
-namespace Retro
+namespace Saturn
 {
 	class LinuxWindow : public Window
 	{

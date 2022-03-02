@@ -1,8 +1,8 @@
-#include "retropch.h"
+#include "stpch.h"
 
 #include "Layer.h"
 
-namespace Retro
+namespace Saturn
 {
 	Layer::Layer(const std::string& debugName)
 		: m_DebugName(debugName)
@@ -11,5 +11,6 @@ namespace Retro
 
 	Layer::~Layer()
 	{
+
 	}
 }

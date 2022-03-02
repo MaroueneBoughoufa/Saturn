@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Retro/Core.h"
+#include "Saturn/Core.h"
 #include "Layer.h"
 
-namespace Retro
+namespace Saturn
 {
-	class RETRO_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "retropch.h"
+#include "stpch.h"
 
 #include "Event.h"
 
-namespace Retro
+namespace Saturn
 {
-	class RETRO_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
@@ -28,7 +28,7 @@ namespace Retro
 		unsigned int m_Width, m_Height;
 	};
 
-	class RETRO_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
@@ -37,7 +37,7 @@ namespace Retro
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class RETRO_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {}
@@ -46,7 +46,7 @@ namespace Retro
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class RETRO_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -55,7 +55,7 @@ namespace Retro
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class RETRO_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}
