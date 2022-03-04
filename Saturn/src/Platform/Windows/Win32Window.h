@@ -4,6 +4,7 @@
 
 #ifdef ST_PLATFORM_WINDOWS
 #include "Saturn/Window.h"
+#include "Saturn/Renderer/RenderContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -31,6 +32,7 @@ namespace Saturn
 		virtual void ShutDown();
 	private:
 		GLFWwindow* m_Window;
+		RenderContext* m_Context;
 
 		struct WindowData
 		{

@@ -8,7 +8,7 @@
 #include "Saturn/Events/MouseEvent.h"
 #include "Saturn/Events/KeyEvent.h"
 
-#include <Glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Saturn
 {
@@ -52,10 +52,9 @@ namespace Saturn
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		ST_CORE_ASSERT(status, "Failed to initialize Glad!");
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -156,7 +155,7 @@ namespace Saturn
 	void Win32Window::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void Win32Window::SetVSync(bool enabled)

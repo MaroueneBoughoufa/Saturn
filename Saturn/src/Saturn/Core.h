@@ -16,8 +16,10 @@
 
 #ifdef ST_PLATFORM_LINUX
 	#ifdef __GNUC__
-		#ifdef Rtro_EXPORT
-			#define RETRO_API __attribute__((visibility("default")))
+		#ifdef ST_EXPORT
+			#define SATURN_API __attribute__((visibility("default")))
+		#else
+			#define SATURN_API
 		#endif
 	#endif
 #endif
