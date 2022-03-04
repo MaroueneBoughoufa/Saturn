@@ -155,7 +155,7 @@ project "Sandbox"
 		optimize "on"
 
 newaction {
-	trigger = "destroy",
+	trigger = "delete",
 	description = "Remove all binaries and intermediate binaries, and project files.",
 	execute = function()
 		print("Removing binaries...")

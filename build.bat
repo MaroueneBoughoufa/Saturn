@@ -13,7 +13,7 @@ echo Enter 'build.bat [action]' where [action] is one of the following:
 echo.
 echo   compile           Will generate make file then compile using the make file.
 echo   clean             Remove all binaries and intermediate binaries.
-echo   destroy           Remove all project files as well as all binaries and intermediate binaries.
+echo   delete            Remove all project files as well as all binaries and intermediate binaries.
 echo   codelite          Generate CodeLite project files
 echo   gmake2            Generate GNU makefiles for POSIX, MinGW and Cygwin
 echo   vs2005            Generate Visual Studio 2005 project files
