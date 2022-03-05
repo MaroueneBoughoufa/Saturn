@@ -6,6 +6,8 @@
 #include "Events/ApplicationEvent.h"
 #include "Saturn/Window.h"
 #include "Saturn/ImGui/ImGuiLayer.h"
+#include "Saturn/Renderer/Shader.h"
+#include "Saturn/Renderer/Buffer.h"
 
 namespace Saturn
 {
@@ -32,7 +34,11 @@ namespace Saturn
 		bool m_Running;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray;
+
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 
 		static Application* s_Instance;
 	};

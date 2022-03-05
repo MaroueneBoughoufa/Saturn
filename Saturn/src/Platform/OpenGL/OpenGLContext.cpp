@@ -17,6 +17,8 @@ namespace Saturn
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		ST_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		ST_CORE_INFO("\nOpenGLRenderer:\n\tGPU: {0}\n\tVersion: {1}", glGetString(GL_RENDERER), glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers()
