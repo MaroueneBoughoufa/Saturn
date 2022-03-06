@@ -7,7 +7,6 @@
 
 namespace Saturn
 {
-
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
@@ -21,22 +20,25 @@ namespace Saturn
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[] = {
-			0.5f,  0.5f, 0.0f,  // top right
-			0.5f, -0.5f, 0.0f,  // bottom right
-			-0.5f, -0.5f, 0.0f,  // bottom left
-			-0.5f,  0.5f, 0.0f   // top left
+			 // Position           // Color
+			 0.5f,  0.5f,  0.0f,   0.8f, 0.2f, 0.8f, 1.0f,  // top right
+			 0.5f, -0.5f,  0.0f,   0.2f, 0.3f, 0.8f, 1.0f,  // bottom right
+			-0.5f, -0.5f,  0.0f,   0.8f, 0.8f, 0.2f, 1.0f,  // bottom left
+			-0.5f,  0.5f,  0.0f,   0.3f, 0.2f, 0.8f, 1.0f   // top left
 		};
 		
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		BufferLayout layout = {
+			{ ShaderDataType::Vec3f, "a_Position" },
+			{ ShaderDataType::Vec4f, "a_Color" }
+		};
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		m_VertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 
 		uint32_t indices[] = {
 			0, 1, 3,
@@ -44,15 +46,20 @@ namespace Saturn
 		};
 
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		std::string vertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+
+			out vec3 v_Position;
+			out vec4 v_Color;
 
 			void main()
 			{
+				v_Position = a_Position;
+				v_Color = a_Color;
 				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
@@ -61,10 +68,13 @@ namespace Saturn
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+			in vec4 v_Color;
 			
 			void main()
 			{
-				color = vec4(0.1, 0.2, 1.0, 1.0);
+				color = v_Color;
 			}
 		)";
 
@@ -110,9 +120,9 @@ namespace Saturn
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			m_Shader->Bind();
+			m_VertexArray->Bind();
 
-			glBindVertexArray(m_VertexArray);
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
