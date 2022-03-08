@@ -37,6 +37,6 @@ if not defined DevEnvDir (
 )
 
 set solutionFile="SaturnEngine.sln"
-msbuild /t:Build /p:Configuration="%~1" /p:Platform=x64 %solutionFile%
+msbuild /t:Build /p:Configuration="%~2" /p:Platform=x64 %solutionFile%
 
 :Done
