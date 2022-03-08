@@ -30,7 +30,7 @@ GOTO Done
 
 :Compile
 
-vendor\premake5.exe vs2019
+vendor\premake\premake5.exe vs2019
 
 if not defined DevEnvDir (
     call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
