@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "Input.h"
 
+#include "Renderer/Renderer.h"
+
 #include <Glad/glad.h>
 
 namespace Saturn
@@ -113,14 +115,14 @@ namespace Saturn
 	{
 		while (m_Running)
 		{
-			glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1));
+			RenderCommand::Clear();
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
 
-			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::BeginScene();
+			Renderer::Submit(m_VertexArray);
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 			{
