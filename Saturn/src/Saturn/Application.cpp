@@ -82,10 +82,6 @@ namespace Saturn
 		m_Shader.reset(Shader::Create(vertexSrc, fragmentSrc));
 	}
 
-	Application::~Application()
-	{
-	}
-
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);

@@ -40,8 +40,6 @@ namespace Saturn
 		uint32_t Offset;
 		bool Normalized;
 
-		BufferElement() {}
-
 		BufferElement(ShaderDataType type, const std::string& name, bool normalised = false)
 			: Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalised)
 		{}
@@ -106,7 +104,7 @@ namespace Saturn
 	class VertexBuffer
 	{
 	public:
-		virtual ~VertexBuffer() {}
+		virtual ~VertexBuffer() = default;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
@@ -120,7 +118,7 @@ namespace Saturn
 	class IndexBuffer
 	{
 	public:
-		virtual ~IndexBuffer() {}
+		virtual ~IndexBuffer() = default;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;

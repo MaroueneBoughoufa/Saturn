@@ -8,9 +8,4 @@ namespace Saturn
 		: m_DebugName(debugName)
 	{
 	}
-
-	Layer::~Layer()
-	{
-
-	}
 }
