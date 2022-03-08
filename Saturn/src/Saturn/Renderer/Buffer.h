@@ -48,17 +48,17 @@ namespace Saturn
 		{
 			switch (Type)
 			{
-			case ShaderDataType::Float: return 1;
-			case ShaderDataType::Vec2f: return 2;
-			case ShaderDataType::Vec3f: return 3;
-			case ShaderDataType::Vec4f: return 4;
-			case ShaderDataType::Int:   return 1;
-			case ShaderDataType::Vec2i: return 2;
-			case ShaderDataType::Vec3i: return 3;
-			case ShaderDataType::Vec4i: return 4;
-			case ShaderDataType::Mat3f: return 3 * 3;
-			case ShaderDataType::Mat4f: return 4 * 4;
-			case ShaderDataType::Bool:  return 1;
+				case ShaderDataType::Float: return 1;
+				case ShaderDataType::Vec2f: return 2;
+				case ShaderDataType::Vec3f: return 3;
+				case ShaderDataType::Vec4f: return 4;
+				case ShaderDataType::Int:   return 1;
+				case ShaderDataType::Vec2i: return 2;
+				case ShaderDataType::Vec3i: return 3;
+				case ShaderDataType::Vec4i: return 4;
+				case ShaderDataType::Mat3f: return 3 * 3;
+				case ShaderDataType::Mat4f: return 4 * 4;
+				case ShaderDataType::Bool:  return 1;
 			}
 
 			ST_CORE_ASSERT(false, "Unknown ShaderDataType!");
