@@ -3,5 +3,5 @@
 
 namespace Saturn
 {
-	RendererAPI::API s_API = RendererAPI::API::OpenGL;
+	RendererAPI::API RendererAPI::s_API = RendererAPI::API::OpenGL;
 }
