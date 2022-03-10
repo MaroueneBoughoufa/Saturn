@@ -9,6 +9,7 @@
 #include "Saturn/Renderer/Shader.h"
 #include "Saturn/Renderer/Buffer.h"
 #include "Saturn/Renderer/VertexArray.h"
+#include "Saturn/Renderer/OrthoCamera.h"
 
 namespace Saturn
 {
@@ -39,6 +40,8 @@ namespace Saturn
 		std::shared_ptr<VertexBuffer> m_VertexBuffer;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 		std::shared_ptr<Shader> m_Shader;
+
+		OrthoCamera m_Camera;
 
 		static Application* s_Instance;
 	};
