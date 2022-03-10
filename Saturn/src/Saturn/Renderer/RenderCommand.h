@@ -21,6 +21,12 @@ namespace Saturn
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);
 		}
+
+		inline static void SetWireframeMode(bool wireframe)
+		{
+			s_RendererAPI->SetWireframeMode(wireframe);
+		}
+
 	private:
 		static RendererAPI* s_RendererAPI;
 	};

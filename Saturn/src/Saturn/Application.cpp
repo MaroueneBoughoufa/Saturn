@@ -87,13 +87,11 @@ namespace Saturn
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
-		layer->OnAttach();
 	}
 	
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
-		layer->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
@@ -118,12 +116,14 @@ namespace Saturn
 			RenderCommand::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1));
 			RenderCommand::Clear();
 
-			m_Shader->Bind();
-
 			Renderer::BeginScene();
-			Renderer::Submit(m_VertexArray);
-			Renderer::EndScene();
 
+			RenderCommand::SetWireframeMode(false);
+
+			m_Shader->Bind();
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate();
