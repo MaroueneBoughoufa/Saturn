@@ -18,7 +18,7 @@ subprocess.call(["git", "submodule", "update", "--init", "--recursive"])
 if (premakeInstalled):
     if platform.system == "Windows":
         print("\nRunning Premake")
-        subprocess.call([os.path.abspath("./scripts/Win-GenProjects.bat"), "nopause"])
+        subprocess.call([os.path.abspath("./scripts/Win-GenProject-vs2019.bat"), "nopause"])
         print("\nSetup completed!")
 else:
     print("Saturn requires Premake to generate project files.")
