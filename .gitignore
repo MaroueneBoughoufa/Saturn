@@ -2,15 +2,14 @@ Makefile
 bin/
 bin-int/
 .vs/
+vendor/premake/bin/
 .codelite/
 *imgui.ini
 *.workspace
 *.project
 *.mk
 *.sln
-*.vcxproj
-*.user
-*.filters
+*.vcxproj*
 *.log
 *.def
 *.obj
