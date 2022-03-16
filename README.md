@@ -14,6 +14,6 @@ A port of my previous game engine from Java to C++
 2. Configure dependencies
 
     1. Run the [Setup.bat](./scripts/setup.bat) file found in the `scripts` folder. This will download the required prerequisites for the project if they are not present yet.
-    2. After that run the [Win-GenProjects.bat](./scripts/Win-GenProjects.bat) script file to generate a visual studio project.
+    2. After that run the [Win-GenProjects-vs2019.bat](./scripts/Win-GenProjects-vs2019.bat) script file to generate a visual studio 2019 project.
 
-If changes are made, or if you want to regenerate project files, rerun the [Win-GenProjects.bat](./scripts/Win-GenProjects.bat) script file found in `scripts` folder.
+If changes are made, or if you want to regenerate project files, rerun the [Win-GenProjects-vs2019.bat](./scripts/Win-GenProjects-vs2019.bat) script file found in `scripts` folder.
