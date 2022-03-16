@@ -9,17 +9,17 @@ project "Sandbox"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 	
 	files {
-		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.hpp",
-		"%{prj.name}/src/**.c",
-		"%{prj.name}/src/**.cpp",
+		"src/**.h",
+		"src/**.hpp",
+		"src/**.c",
+		"src/**.cpp",
 	}
 	
 	includedirs {
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
-		"Saturn/vendor",
-		"Saturn/src"
+		"../Saturn/vendor",
+		"../Saturn/src"
 	}
 
 	links {
