@@ -2,6 +2,9 @@ include "./vendor/premake/premake_customization/solution_items.lua"
 include "./vendor/premake/premake_customization/actions.lua"
 include "dependencies.lua"
 
+require "vendor/premake/premake_customization/workspaces/codeblocks/codeblocks"
+require "vendor/premake/premake_customization/workspaces/vscode/vscode"
+
 workspace "SaturnEngine"
 	architecture "x86_64"
 	startproject "Sandbox"

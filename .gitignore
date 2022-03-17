@@ -1,6 +1,8 @@
 Makefile
 bin/
 bin-int/
+Saturn/Saturn/
+Sandobox/Sandbox/
 .vs/
 scripts/__pycache__/
 vendor/premake/bin/

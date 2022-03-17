@@ -16,6 +16,8 @@ newaction {
 		os.remove("**.vcxproj")
 		os.remove("**.vcxproj.filters")
 		os.remove("**.vcxproj.user")
+		os.rmdir("./Saturn/Saturn")
+		os.rmdir("./Sandbox/Sandbox")
 		print("Done.")
 	end
 }
