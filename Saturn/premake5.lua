@@ -1,5 +1,4 @@
 project "Saturn"
-	location "Saturn"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
