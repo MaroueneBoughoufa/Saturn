@@ -5,7 +5,7 @@ class GameLayer : public Saturn::Layer
 {
 public:
 	GameLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 	{
 		m_VertexArray.reset(Saturn::VertexArray::Create());
 		
@@ -71,13 +71,30 @@ public:
 		m_Shader.reset(Saturn::Shader::Create(vertexSrc, fragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Saturn::Timestep ts) override
 	{
+		ST_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMiliseconds());
+
+		if (Saturn::Input::IsKeyPressed(KEY_LEFT))
+			m_CameraPosition.x -= m_CameraSpeed;
+		else if (Saturn::Input::IsKeyPressed(KEY_RIGHT))
+			m_CameraPosition.x += m_CameraSpeed;
+		
+		if (Saturn::Input::IsKeyPressed(KEY_UP))
+			m_CameraPosition.y += m_CameraSpeed;
+		else if (Saturn::Input::IsKeyPressed(KEY_DOWN))
+			m_CameraPosition.y -= m_CameraSpeed;
+
+		if (Saturn::Input::IsKeyPressed(KEY_Q))
+			m_CameraRotation += m_CameraRotationSpeed;
+		else if (Saturn::Input::IsKeyPressed(KEY_E))
+			m_CameraRotation -= m_CameraRotationSpeed;
+
 		Saturn::RenderCommand::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1));
 		Saturn::RenderCommand::Clear();
 
-		m_Camera.SetPosition({ 0.5f, 0.5f, 0.0f });
-		m_Camera.SetRotation(45.0f);
+		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.SetRotation(m_CameraRotation);
 
 		Saturn::Renderer::BeginScene(m_Camera);
 
@@ -105,6 +122,10 @@ private:
 	std::shared_ptr<Saturn::Shader> m_Shader;
 
 	Saturn::OrthoCamera m_Camera;
+	glm::vec3 m_CameraPosition;
+	float m_CameraSpeed = 0.1f;
+	float m_CameraRotation = 0.0f;
+	float m_CameraRotationSpeed = 2.0f;
 };
 
 class Sandbox : public Saturn::Application

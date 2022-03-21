@@ -2,10 +2,14 @@
 
 #include "Core.h"
 #include "LayerStack.h"
+
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
+
 #include "Saturn/Window.h"
 #include "Saturn/ImGui/ImGuiLayer.h"
+
+#include "Saturn/Core/Timestep.h"
 
 namespace Saturn
 {
@@ -31,6 +35,7 @@ namespace Saturn
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 
 		static Application* s_Instance;
 	};

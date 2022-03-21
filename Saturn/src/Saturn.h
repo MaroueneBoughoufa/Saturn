@@ -6,6 +6,7 @@
 #include "Saturn/Layer.h"
 #include "Saturn/Log.h"
 
+#include "Saturn/Core/Timestep.h"
 
 //---Input-------------------------
 #include "Saturn/Input.h"

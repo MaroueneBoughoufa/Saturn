@@ -3,6 +3,8 @@
 #include "Saturn/Core.h"
 #include "Saturn/Events/Event.h"
 
+#include "Saturn/Core/Timestep.h"
+
 namespace Saturn
 {
 	class Layer
@@ -13,7 +15,7 @@ namespace Saturn
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 
