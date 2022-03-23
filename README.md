@@ -1,5 +1,5 @@
-# SaturnEngine
-A port of my previous game engine from Java to C++
+# Saturn
+A 2D game engine (currently a WIP).
 
 # Build instructions
 
