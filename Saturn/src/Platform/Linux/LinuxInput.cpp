@@ -1,5 +1,5 @@
 #include "stpch.h"
-#include "Saturn/Core.h"
+#include "Saturn/Core/Core.h"
 
 #ifdef ST_PLATFORM_LINUX
 #include "LinuxInput.h"
