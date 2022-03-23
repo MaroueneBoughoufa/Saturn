@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Saturn/Core.h"
+#include "Saturn/Core/Core.h"
 
 #ifdef ST_PLATFORM_WINDOWS
-#include "Saturn/Window.h"
+#include "Saturn/Core/Window.h"
 #include "Saturn/Renderer/RenderContext.h"
 
 #include <GLFW/glfw3.h>

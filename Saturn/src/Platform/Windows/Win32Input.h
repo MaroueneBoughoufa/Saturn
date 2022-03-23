@@ -1,8 +1,8 @@
 #pragma once
-#include "Saturn/Core.h"
+#include "Saturn/Core/Core.h"
 
 #ifdef ST_PLATFORM_WINDOWS
-#include "Saturn/Input.h"
+#include "Saturn/Core/Input.h"
 
 namespace Saturn
 {

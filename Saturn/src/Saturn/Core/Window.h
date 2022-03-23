@@ -2,7 +2,7 @@
 
 #include "stpch.h"
 
-#include "Saturn/Core.h"
+#include "Core.h"
 #include "Saturn/Events/Event.h"
 
 namespace Saturn

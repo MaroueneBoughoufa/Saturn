@@ -1,5 +1,5 @@
 #include "stpch.h"
-#include "Saturn/Core.h"
+#include "Saturn/Core/Core.h"
 
 #ifdef ST_PLATFORM_WINDOWS
 #include "Win32Window.h"

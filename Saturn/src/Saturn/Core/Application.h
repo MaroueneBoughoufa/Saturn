@@ -3,13 +3,13 @@
 #include "Core.h"
 #include "LayerStack.h"
 
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "Saturn/Events/Event.h"
+#include "Saturn/Events/ApplicationEvent.h"
 
-#include "Saturn/Window.h"
+#include "Window.h"
 #include "Saturn/ImGui/ImGuiLayer.h"
 
-#include "Saturn/Core/Timestep.h"
+#include "Timestep.h"
 
 namespace Saturn
 {

@@ -2,16 +2,16 @@
 
 // For use by Saturn Engine applications
 
-#include "Saturn/Application.h"
-#include "Saturn/Layer.h"
-#include "Saturn/Log.h"
+#include "Saturn/Core/Application.h"
+#include "Saturn/Core/Layer.h"
+#include "Saturn/Core/Log.h"
 
 #include "Saturn/Core/Timestep.h"
 
 //---Input-------------------------
-#include "Saturn/Input.h"
-#include "Saturn/KeyCodes.h"
-#include "Saturn/MouseButtonCodes.h"
+#include "Saturn/Core/Input.h"
+#include "Saturn/Core/KeyCodes.h"
+#include "Saturn/Core/MouseButtonCodes.h"
 //--------------------------------
 
 
@@ -28,5 +28,5 @@
 
 
 //---Entry Point------------------
-#include "Saturn/EntryPoint.h"
+#include "Saturn/Core/EntryPoint.h"
 //--------------------------------

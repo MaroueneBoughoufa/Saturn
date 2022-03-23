@@ -1,10 +1,10 @@
 #include "stpch.h"
-#include "Saturn/Core.h"
+#include "Saturn/Core/Core.h"
 
 #ifdef ST_PLATFORM_WINDOWS
 #include "Win32Input.h"
 
-#include "Saturn/Application.h"
+#include "Saturn/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Saturn

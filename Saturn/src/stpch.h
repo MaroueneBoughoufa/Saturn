@@ -13,7 +13,7 @@
 #include <unordered_set>
 
 // Saturn precompiled headers
-#include "Saturn/Log.h"
+#include "Saturn/Core/Log.h"
 
 // Include platform specific headers here
 #ifdef ST_PLATFORM_WINDOWS

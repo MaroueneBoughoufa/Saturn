@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Saturn/Core.h"
+#include "Core.h"
 #include "Saturn/Events/Event.h"
 
-#include "Saturn/Core/Timestep.h"
+#include "Timestep.h"
 
 namespace Saturn
 {
