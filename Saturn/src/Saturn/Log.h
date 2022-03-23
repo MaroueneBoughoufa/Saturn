@@ -24,11 +24,11 @@ namespace Saturn
 #define ST_CORE_INFO(...)      Saturn::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define ST_CORE_WARN(...)      Saturn::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define ST_CORE_ERROR(...)     Saturn::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define ST_CORE_CRITICAL(...)     Saturn::Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define ST_CORE_CRITICAL(...)  Saturn::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // Client Logger macros
 #define ST_TRACE(...)          Saturn::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define ST_INFO(...)           Saturn::Log::GetClientLogger()->info(__VA_ARGS__)
 #define ST_WARN(...)           Saturn::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define ST_ERROR(...)          Saturn::Log::GetClientLogger()->error(__VA_ARGS__)
-#define ST_CRITICAL(...)          Saturn::Log::GetClientLogger()->critical(__VA_ARGS__)
+#define ST_CRITICAL(...)       Saturn::Log::GetClientLogger()->critical(__VA_ARGS__)
