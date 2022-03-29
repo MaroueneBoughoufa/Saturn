@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef ST_PLATFORM_WINDOWS
 	#ifdef ST_DYNAMIC_LINK
 		#ifdef _MSC_VER

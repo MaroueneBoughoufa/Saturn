@@ -24,7 +24,7 @@ public:
 		   -0.5f,  0.5f,  0.0f,   0.3f, 0.2f, 0.8f, 1.0f   // top left
 		};
 
-		std::shared_ptr<Saturn::VertexBuffer> squareVertexBuffer;
+		Saturn::Ref<Saturn::VertexBuffer> squareVertexBuffer;
 		squareVertexBuffer.reset(Saturn::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
 
@@ -36,7 +36,7 @@ public:
 			1, 2, 3
 		};
 
-		std::shared_ptr<Saturn::IndexBuffer> squareIndexBuffer;
+		Saturn::Ref<Saturn::IndexBuffer> squareIndexBuffer;
 
 		squareIndexBuffer.reset(Saturn::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIndexBuffer);
@@ -49,7 +49,7 @@ public:
 			-0.5f, -0.5f,  0.0f,   1.0f, 0.0f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<Saturn::VertexBuffer> vertexBuffer;
+		Saturn::Ref<Saturn::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Saturn::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		vertexBuffer->SetLayout(layout);
@@ -59,7 +59,7 @@ public:
 			1, 2, 3
 		};
 
-		std::shared_ptr<Saturn::IndexBuffer> indexBuffer;
+		Saturn::Ref<Saturn::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Saturn::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
 		m_VertexArray->SetIndexBuffer(indexBuffer);
@@ -154,9 +154,9 @@ public:
 	{
 	}
 private:
-	std::shared_ptr<Saturn::VertexArray> m_VertexArray;
-	std::shared_ptr<Saturn::VertexArray> m_SquareVA;
-	std::shared_ptr<Saturn::Shader> m_Shader;
+	Saturn::Ref<Saturn::VertexArray> m_VertexArray;
+	Saturn::Ref<Saturn::VertexArray> m_SquareVA;
+	Saturn::Ref<Saturn::Shader> m_Shader;
 
 	Saturn::OrthoCamera m_Camera;
 	glm::vec3 m_CameraPosition;
