@@ -2,28 +2,20 @@
 
 #include <memory>
 
-#ifdef ST_PLATFORM_WINDOWS
-	#ifdef ST_DYNAMIC_LINK
-		#ifdef _MSC_VER
-			#ifdef ST_BUILD_DLL
-				#define SATURN_API __declspec(dllexport)
-			#else
-				#define SATURN_API __declspec(dllimport)
-			#endif
+#ifdef ST_DYNAMIC_LINK
+	#ifdef _MSC_VER
+		#ifdef ST_BUILD_DLL
+			#define SATURN_API __declspec(dllexport)
+		#else
+			#define SATURN_API __declspec(dllimport)
 		#endif
-	#else
-		#define SATURN_API
-	#endif
-#endif
-
-#ifdef ST_PLATFORM_LINUX
-	#ifdef __GNUC__
+	#elif defined __GNUC__
 		#ifdef ST_EXPORT
 			#define SATURN_API __attribute__((visibility("default")))
-		#else
-			#define SATURN_API
 		#endif
 	#endif
+#else
+	#define SATURN_API
 #endif
 
 #ifdef ST_ENABLE_ASSERT
