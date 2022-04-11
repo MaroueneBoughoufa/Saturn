@@ -71,7 +71,7 @@ public:
 
 		m_Shader = Saturn::Shader::Create(vertexSrc, fragmentSrc);
 
-		m_Texture = Saturn::Texture2D::Create("assets/textures/test.jpg");
+		m_Texture = Saturn::Texture2D::Create("assets/textures/alpha-test.png");
 
 		std::dynamic_pointer_cast<Saturn::OpenGLShader>(m_Shader)->UploadUniformInt("u_Texture", 0);
 	}

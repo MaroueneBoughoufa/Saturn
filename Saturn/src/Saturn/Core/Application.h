@@ -7,6 +7,9 @@
 #include "Saturn/Events/ApplicationEvent.h"
 
 #include "Window.h"
+
+#include "Saturn/Renderer/Renderer.h"
+
 #include "Saturn/ImGui/ImGuiLayer.h"
 
 #include "Timestep.h"

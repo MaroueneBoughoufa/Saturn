@@ -17,6 +17,8 @@ namespace Saturn
 		m_Window = Scope<Window>(Window::Create());
 		m_Window->SetEventCallBack(BIND_EVENT_FN(Application::OnEvent));
 
+		Renderer::Init();
+
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
