@@ -18,6 +18,7 @@
 //---Renderer---------------------
 #include "Saturn/Renderer/Renderer.h"
 #include "Saturn/Renderer/Shader.h"
+#include "Saturn/Renderer/Texture.h"
 #include "Saturn/Renderer/Buffer.h"
 #include "Saturn/Renderer/VertexArray.h"
 #include "Saturn/Renderer/OrthoCamera.h"
