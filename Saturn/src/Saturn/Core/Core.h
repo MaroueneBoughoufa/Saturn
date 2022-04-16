@@ -10,9 +10,7 @@
 			#define SATURN_API __declspec(dllimport)
 		#endif
 	#elif defined __GNUC__
-		#ifdef ST_EXPORT
-			#define SATURN_API __attribute__((visibility("default")))
-		#endif
+		#define SATURN_API __attribute__((visibility("default")))
 	#endif
 #else
 	#define SATURN_API
