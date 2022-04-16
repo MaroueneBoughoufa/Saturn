@@ -1,19 +1,31 @@
-Makefile
+## Binary folders 
 bin/
 bin-int/
-.vs/
+
+## Codelite stuff
 .codelite/
-.vscode/
-scripts/__pycache__/
-vendor/premake/bin/
-*imgui.ini
 *.workspace
 *.project
 *.cbp
 *.layout
-*.mk
+
+## Visual Studio stuff
+.vs/
 *.sln
 *.vcxproj*
 *.log
 *.def
 *.obj
+*.hint
+
+## Makefile stuff
+Makefile
+*.mk
+
+## ImGui stuff
+*imgui.ini
+
+## Other stuff
+.vscode/
+scripts/__pycache__/
+vendor/premake/bin/
