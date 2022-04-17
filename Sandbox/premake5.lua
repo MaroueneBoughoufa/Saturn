@@ -25,19 +25,7 @@ project "Sandbox"
 		"Saturn"
 	}
 
-	filter "system:windows"
-		systemversion "latest"
-
-		defines {
-			"ST_PLATFORM_WINDOWS"
-		}
-
-	filter "system:linux"
-		systemversion "latest"
-
-		defines {
-			"ST_PLATFORM_LINUX"
-		}
+	systemversion "latest"
 
 	filter "configurations:Debug"
 		defines "ST_DEBUG"

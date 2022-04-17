@@ -42,7 +42,6 @@ project "Saturn"
 		systemversion "latest"
 
 		defines {
-			"ST_PLATFORM_WINDOWS",
 			"GLFW_INCLUDE_NONE",
 			"_CRT_SECURE_NO_WARNINGS"
 		}
@@ -51,7 +50,6 @@ project "Saturn"
 		systemversion "latest"
 
 		defines {
-			"ST_PLATFORM_LINUX",
 			"GLFW_INCLUDE_NONE"
 		}
 
