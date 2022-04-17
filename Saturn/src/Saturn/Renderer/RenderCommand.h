@@ -12,6 +12,11 @@ namespace Saturn
 			s_RendererAPI->Init();
 		}
 
+		inline static void SetViewport(uint32_t x, uint32_t y, uint32_t height, uint32_t width)
+		{
+			s_RendererAPI->SetViewport(x, y, width, height);
+		}
+
 		inline static void SetClearColor(glm::vec4& color)
 		{
 			s_RendererAPI->SetClearColor(color);

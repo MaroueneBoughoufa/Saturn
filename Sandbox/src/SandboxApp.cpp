@@ -48,16 +48,6 @@ public:
 	{
 		m_CameraController.OnUpdate(ts);
 
-		/*if (Saturn::Input::IsKeyPressed(KEY_J))
-			m_SquarePosition.x -= m_SquareSpeed * ts;
-		else if (Saturn::Input::IsKeyPressed(KEY_L))
-			m_SquarePosition.x += m_SquareSpeed * ts;
-
-		if (Saturn::Input::IsKeyPressed(KEY_I))
-			m_SquarePosition.y += m_SquareSpeed * ts;
-		else if (Saturn::Input::IsKeyPressed(KEY_K))
-			m_SquarePosition.y -= m_SquareSpeed * ts;*/
-
 		m_Texture->Bind();
 
 		Saturn::RenderCommand::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1));
@@ -66,8 +56,6 @@ public:
 		Saturn::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		Saturn::RenderCommand::SetWireframeMode(false);
-
-		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
 
 		Saturn::Renderer::Submit(m_Shader, m_SquareVA);
 
@@ -89,9 +77,6 @@ private:
 	Saturn::Ref<Saturn::Texture2D> m_Texture;
 
 	Saturn::OrthoCameraController m_CameraController;
-
-	//glm::vec3 m_SquarePosition;
-	//float m_SquareSpeed = 1.5f;
 };
 
 class Sandbox : public Saturn::Application
