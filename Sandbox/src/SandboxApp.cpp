@@ -8,7 +8,7 @@ class GameLayer : public Saturn::Layer
 {
 public:
 	GameLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
 		m_SquareVA = Saturn::VertexArray::Create();
 		
@@ -46,22 +46,9 @@ public:
 
 	void OnUpdate(Saturn::Timestep ts) override
 	{
-		if (Saturn::Input::IsKeyPressed(KEY_LEFT))
-			m_CameraPosition.x -= m_CameraSpeed * ts;
-		else if (Saturn::Input::IsKeyPressed(KEY_RIGHT))
-			m_CameraPosition.x += m_CameraSpeed * ts;
-		
-		if (Saturn::Input::IsKeyPressed(KEY_UP))
-			m_CameraPosition.y += m_CameraSpeed * ts;
-		else if (Saturn::Input::IsKeyPressed(KEY_DOWN))
-			m_CameraPosition.y -= m_CameraSpeed * ts;
+		m_CameraController.OnUpdate(ts);
 
-		if (Saturn::Input::IsKeyPressed(KEY_Q))
-			m_CameraRotation += m_CameraRotationSpeed * ts;
-		else if (Saturn::Input::IsKeyPressed(KEY_E))
-			m_CameraRotation -= m_CameraRotationSpeed * ts;
-
-		if (Saturn::Input::IsKeyPressed(KEY_J))
+		/*if (Saturn::Input::IsKeyPressed(KEY_J))
 			m_SquarePosition.x -= m_SquareSpeed * ts;
 		else if (Saturn::Input::IsKeyPressed(KEY_L))
 			m_SquarePosition.x += m_SquareSpeed * ts;
@@ -69,29 +56,27 @@ public:
 		if (Saturn::Input::IsKeyPressed(KEY_I))
 			m_SquarePosition.y += m_SquareSpeed * ts;
 		else if (Saturn::Input::IsKeyPressed(KEY_K))
-			m_SquarePosition.y -= m_SquareSpeed * ts;
+			m_SquarePosition.y -= m_SquareSpeed * ts;*/
 
 		m_Texture->Bind();
 
 		Saturn::RenderCommand::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1));
 		Saturn::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
-
-		Saturn::Renderer::BeginScene(m_Camera);
+		Saturn::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		Saturn::RenderCommand::SetWireframeMode(false);
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
+		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
 
-		Saturn::Renderer::Submit(m_Shader, m_SquareVA, transform);
+		Saturn::Renderer::Submit(m_Shader, m_SquareVA);
 
 		Saturn::Renderer::EndScene();
 	}
 
-	void OnEvent(Saturn::Event& event) override
+	void OnEvent(Saturn::Event& e) override
 	{
+		m_CameraController.OnEvent(e);
 	}
 
 	void OnImGuiRender() override
@@ -103,14 +88,10 @@ private:
 	Saturn::Ref<Saturn::Shader> m_Shader;
 	Saturn::Ref<Saturn::Texture2D> m_Texture;
 
-	Saturn::OrthoCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 3.0f;
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 60.0f;
+	Saturn::OrthoCameraController m_CameraController;
 
-	glm::vec3 m_SquarePosition;
-	float m_SquareSpeed = 1.5f;
+	//glm::vec3 m_SquarePosition;
+	//float m_SquareSpeed = 1.5f;
 };
 
 class Sandbox : public Saturn::Application

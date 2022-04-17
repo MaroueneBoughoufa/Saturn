@@ -8,7 +8,7 @@
 
 #include "Saturn/Core/Timestep.h"
 
-//---Input-------------------------
+//---Input------------------------
 #include "Saturn/Core/Input.h"
 #include "Saturn/Core/KeyCodes.h"
 #include "Saturn/Core/MouseButtonCodes.h"
@@ -22,6 +22,7 @@
 #include "Saturn/Renderer/Buffer.h"
 #include "Saturn/Renderer/VertexArray.h"
 #include "Saturn/Renderer/OrthoCamera.h"
+#include "Saturn/Renderer/OrthoCameraController.h"
 //--------------------------------
 
 
