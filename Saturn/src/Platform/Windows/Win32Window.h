@@ -32,7 +32,7 @@ namespace Saturn
 		virtual void ShutDown();
 	private:
 		GLFWwindow* m_Window;
-		RenderContext* m_Context;
+		Scope<RenderContext> m_Context;
 
 		struct WindowData
 		{

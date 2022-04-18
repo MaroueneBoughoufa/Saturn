@@ -9,7 +9,7 @@
 
 namespace Saturn
 {
-	Input* Input::s_Instance = new Win32Input();
+	Scope<Input> Input::s_Instance = CreateScope<Win32Input>();
 
 	bool Win32Input::IsKeyPressedImpl(int keycode)
 	{
