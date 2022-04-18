@@ -1,15 +1,19 @@
 [submodule "Saturn/vendor/spdlog"]
 	path = Saturn/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
+	branch = v1.x
 [submodule "Saturn/vendor/glfw"]
 	path = Saturn/vendor/glfw
 	url = https://github.com/MaroueneBoughoufa/glfw.git
+	branch = master
 [submodule "Saturn/vendor/imgui"]
 	path = Saturn/vendor/imgui
 	url = https://github.com/MaroueneBoughoufa/imgui.git
+	branch = docking
 [submodule "Saturn/vendor/glm"]
 	path = Saturn/vendor/glm
 	url = https://github.com/g-truc/glm.git
+	branch = master
 [submodule "vendor/premake/premake_customization/workspaces/vscode"]
 	path = vendor/premake/premake_customization/workspaces/vscode
 	url = https://github.com/MaroueneBoughoufa/premake-vscode.git
