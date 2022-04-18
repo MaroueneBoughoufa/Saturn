@@ -144,18 +144,20 @@ namespace Saturn
 
 		const char* typeToken = "#type";
 		size_t typeTokenLength = strlen(typeToken);
-		size_t pos = shaderSrc.find(typeToken, 0);
+		size_t pos = shaderSrc.find(typeToken, 0); // Start of shader type declaration line
 		
 		while (pos != std::string::npos)
 		{
-			size_t eol = shaderSrc.find_first_of("\r\n", pos);
+			size_t eol = shaderSrc.find_first_of("\r\n", pos); // End of shader type declaration line
 			ST_CORE_ASSERT(eol != std::string::npos, "Syntax Error");
-			size_t begin = pos + typeTokenLength + 1;
+			size_t begin = pos + typeTokenLength + 1; // Start of shader type name (after "#type " keyword)
 			std::string type = shaderSrc.substr(begin, eol - begin);
 			ST_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specification!");
 
-			size_t nextLinePos = shaderSrc.find_first_not_of("\r\n", eol);
-			pos = shaderSrc.find(typeToken, nextLinePos);
+			size_t nextLinePos = shaderSrc.find_first_not_of("\r\n", eol); // Start of shader code after shader type declaration line
+			ST_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax Error.");
+
+			pos = shaderSrc.find(typeToken, nextLinePos); // Start of next shader type declaration line
 			shaderSources[ShaderTypeFromString(type)] = shaderSrc.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? shaderSrc.size() - 1 : nextLinePos));
 		}
 
