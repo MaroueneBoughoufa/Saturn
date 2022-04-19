@@ -30,5 +30,5 @@
 
 
 //---Entry Point------------------
-#include "Saturn/Core/EntryPoint.h"
+//#include "Saturn/Core/EntryPoint.h"
 //--------------------------------

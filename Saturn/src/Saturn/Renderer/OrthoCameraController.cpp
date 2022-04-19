@@ -42,6 +42,11 @@ namespace Saturn
 				m_CameraRotation += m_CameraRotationSpeed * ts;
 			else if (Input::IsKeyPressed(KEY_O))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
+
+			if (m_CameraRotation > 100.0f)
+				m_CameraRotation -= 360.0f;
+			else if (m_CameraRotation <= 100.0f)
+				m_CameraRotation += 360.0f,
 			
 			m_OrthoCamera.SetRotation(m_CameraRotation);
 		}

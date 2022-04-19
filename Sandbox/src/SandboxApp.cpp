@@ -1,14 +1,17 @@
 #include <Saturn.h>
+#include <Saturn/Core/EntryPoint.h>
 #include <ImGui/imgui.h>
 
 #include <Platform/OpenGL/OpenGLShader.h>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Sandbox2D.h"
+
 class GameLayer : public Saturn::Layer
 {
 public:
 	GameLayer()
-		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 	{
 		m_SquareVA = Saturn::VertexArray::Create();
 		
@@ -55,8 +58,6 @@ public:
 
 		Saturn::Renderer::BeginScene(m_CameraController.GetCamera());
 
-		Saturn::RenderCommand::SetWireframeMode(false);
-
 		Saturn::Renderer::Submit(m_Shader, m_SquareVA);
 
 		Saturn::Renderer::EndScene();
@@ -84,12 +85,12 @@ class Sandbox : public Saturn::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new GameLayer());
+		//PushLayer(new GameLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox()
 	{
-
 	}
 };
 
