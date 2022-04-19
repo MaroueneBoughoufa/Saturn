@@ -1,8 +1,6 @@
 #include "ExampleLayer.h"
 
 #include <ImGui/imgui.h>
-
-#include <Platform/OpenGL/OpenGLShader.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 
@@ -44,7 +42,7 @@ void ExampleLayer::OnAttach()
 
 	m_Texture = Saturn::Texture2D::Create("assets/textures/alpha-test.png");
 
-	std::dynamic_pointer_cast<Saturn::OpenGLShader>(m_Shader)->UploadUniformInt("u_Texture", 0);
+	m_Shader->SetInt("u_Texture", 0);
 }
 
 void ExampleLayer::OnDetach()

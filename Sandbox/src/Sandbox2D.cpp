@@ -1,6 +1,5 @@
 #include "Sandbox2D.h"
 
-#include <Platform/OpenGL/OpenGLShader.h>
 #include <imgui/imgui.h>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -59,7 +58,7 @@ void Sandbox2D::OnAttach()
 	m_TextureShader = Saturn::Shader::Create("assets/shaders/Texture.glsl");
 
 	m_TextureShader->Bind();
-	std::dynamic_pointer_cast<Saturn::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+	m_TextureShader->SetInt("u_Texture", 0);
 
 	m_FlatColorShader = Saturn::Shader::Create("assets/shaders/FlatColor.glsl");
 }
@@ -81,8 +80,8 @@ void Sandbox2D::OnUpdate(Saturn::Timestep ts)
 	
 	Saturn::Renderer::BeginScene(m_CameraController.GetCamera());
 
-	std::dynamic_pointer_cast<Saturn::OpenGLShader>(m_FlatColorShader)->Bind();
-	std::dynamic_pointer_cast<Saturn::OpenGLShader>(m_FlatColorShader)->UploadUniformVec4f("u_Color", m_SquareColor);
+	m_FlatColorShader->Bind();
+	m_FlatColorShader->SetVec4f("u_Color", m_SquareColor);
 
 	
 	Saturn::Renderer::Submit(m_FlatColorShader, m_SquareVA);

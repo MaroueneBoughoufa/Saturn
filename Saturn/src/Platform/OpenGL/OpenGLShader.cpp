@@ -17,6 +17,41 @@ namespace Saturn
 		return 0;
 	}
 
+	void OpenGLShader::SetInt(const std::string& name, int value)
+	{
+		UploadUniformInt(name, value);
+	}
+
+	void OpenGLShader::SetFloat(const std::string& name, float value)
+	{
+		UploadUniformFloat(name, value);
+	}
+
+	void OpenGLShader::SetVec2f(const std::string& name, glm::vec2& value)
+	{
+		UploadUniformVec2f(name, value);
+	}
+
+	void OpenGLShader::SetVec3f(const std::string& name, glm::vec3& value)
+	{
+		UploadUniformVec3f(name, value);
+	}
+
+	void OpenGLShader::SetVec4f(const std::string& name, glm::vec4& value)
+	{
+		UploadUniformVec4f(name, value);
+	}
+
+	void OpenGLShader::SetMat4f(const std::string& name, glm::mat4& value)
+	{
+		UploadUniformMat4(name, value);
+	}
+
+	void OpenGLShader::SetMat3f(const std::string& name, glm::mat3& value)
+	{
+		UploadUniformMat3(name, value);
+	}
+
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
 		std::string src = ReadFile(filepath);

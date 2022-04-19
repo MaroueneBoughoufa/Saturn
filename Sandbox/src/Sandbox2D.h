@@ -17,7 +17,7 @@ public:
 private:
 	Saturn::OrthoCameraController m_CameraController;
 
-	//Temp
+	// NOTE: Temp
 	//Saturn::ShaderLib m_ShaderLib;
 	Saturn::Ref<Saturn::Shader> m_TextureShader;
 	Saturn::Ref<Saturn::Shader> m_FlatColorShader;
