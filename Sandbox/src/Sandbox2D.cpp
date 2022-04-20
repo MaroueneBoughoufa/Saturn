@@ -10,6 +10,7 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	m_Texture = Saturn::Texture2D::Create("assets/textures/alpha-test.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -26,7 +27,8 @@ void Sandbox2D::OnUpdate(Saturn::Timestep ts)
 	Saturn::RenderCommand::Clear();
 
 	Saturn::Renderer2D::BeginScene(m_CameraController.GetCamera());
-	Saturn::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, m_SquareSize, m_SquareColor, m_SquareRotation);
+	Saturn::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.0f }, m_SquareSize, m_SquareColor, m_SquareRotation);
+	Saturn::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.0f }, m_SquareSize, m_Texture, m_SquareRotation);
 	Saturn::Renderer2D::EndScene();
 }
 

@@ -26,7 +26,7 @@ void ExampleLayer::OnAttach()
 	squareVB->SetLayout({
 		{ Saturn::ShaderDataType::Vec3f, "a_Position" },
 		{ Saturn::ShaderDataType::Vec2f, "a_TexCoord" }
-		});
+	});
 
 	m_SquareVA->AddVertexBuffer(squareVB);
 
