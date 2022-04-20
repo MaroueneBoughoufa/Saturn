@@ -26,7 +26,7 @@ void Sandbox2D::OnUpdate(Saturn::Timestep ts)
 	Saturn::RenderCommand::Clear();
 
 	Saturn::Renderer2D::BeginScene(m_CameraController.GetCamera());
-	Saturn::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Saturn::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, m_SquareSize, m_SquareColor, m_SquareRotation);
 	Saturn::Renderer2D::EndScene();
 }
 
@@ -39,5 +39,7 @@ void Sandbox2D::OnImGuiRender()
 {
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+	ImGui::DragFloat("Square Rotation", &m_SquareRotation);
+	ImGui::DragFloat2("Square Size", glm::value_ptr(m_SquareSize), 0.1f);
 	ImGui::End();
 }

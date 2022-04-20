@@ -16,13 +16,8 @@ public:
 	void OnImGuiRender() override;
 private:
 	Saturn::OrthoCameraController m_CameraController;
-
-	// NOTE: Temp
-	//Saturn::ShaderLib m_ShaderLib;
-	Saturn::Ref<Saturn::Shader> m_TextureShader;
-	Saturn::Ref<Saturn::Shader> m_FlatColorShader;
-	Saturn::Ref<Saturn::Texture2D> m_Texture;
-	Saturn::Ref<Saturn::VertexArray> m_SquareVA, m_TexVA;
 	
-	glm::vec4 m_SquareColor = {0.2f, 0.3f, 0.8f, 1.0f};
+	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+	glm::vec2 m_SquareSize = { 1.0f, 1.0f };
+	float m_SquareRotation = 0.0f;
 };

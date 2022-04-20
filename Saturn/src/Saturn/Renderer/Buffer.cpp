@@ -14,7 +14,7 @@ namespace Saturn
 			ST_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+			return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 
 		ST_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -29,7 +29,7 @@ namespace Saturn
 			ST_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLIndexBuffer>(indices, count);
+			return CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 
 		ST_CORE_ASSERT(false, "Unknown RendererAPI!");
