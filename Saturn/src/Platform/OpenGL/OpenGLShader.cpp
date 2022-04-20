@@ -27,27 +27,27 @@ namespace Saturn
 		UploadUniformFloat(name, value);
 	}
 
-	void OpenGLShader::SetVec2f(const std::string& name, glm::vec2& value)
+	void OpenGLShader::SetVec2f(const std::string& name, const glm::vec2& value)
 	{
 		UploadUniformVec2f(name, value);
 	}
 
-	void OpenGLShader::SetVec3f(const std::string& name, glm::vec3& value)
+	void OpenGLShader::SetVec3f(const std::string& name, const glm::vec3& value)
 	{
 		UploadUniformVec3f(name, value);
 	}
 
-	void OpenGLShader::SetVec4f(const std::string& name, glm::vec4& value)
+	void OpenGLShader::SetVec4f(const std::string& name, const glm::vec4& value)
 	{
 		UploadUniformVec4f(name, value);
 	}
 
-	void OpenGLShader::SetMat4f(const std::string& name, glm::mat4& value)
+	void OpenGLShader::SetMat4f(const std::string& name, const glm::mat4& value)
 	{
 		UploadUniformMat4(name, value);
 	}
 
-	void OpenGLShader::SetMat3f(const std::string& name, glm::mat3& value)
+	void OpenGLShader::SetMat3f(const std::string& name, const glm::mat3& value)
 	{
 		UploadUniformMat3(name, value);
 	}
