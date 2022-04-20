@@ -1,7 +1,7 @@
 #include "stpch.h"
 #include "Renderer.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
+#include "Renderer2D.h"
 
 namespace Saturn
 {
@@ -10,6 +10,7 @@ namespace Saturn
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
@@ -29,8 +30,8 @@ namespace Saturn
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4 transform)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
+		shader->SetMat4f("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
+		shader->SetMat4f("u_Transform", transform);
 
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);

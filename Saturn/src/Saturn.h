@@ -17,6 +17,7 @@
 
 //---Renderer---------------------
 #include "Saturn/Renderer/Renderer.h"
+#include "Saturn/Renderer/Renderer2D.h"
 #include "Saturn/Renderer/Shader.h"
 #include "Saturn/Renderer/Texture.h"
 #include "Saturn/Renderer/Buffer.h"
@@ -27,8 +28,3 @@
 
 
 #include "Saturn/ImGui/ImGuiLayer.h"
-
-
-//---Entry Point------------------
-//#include "Saturn/Core/EntryPoint.h"
-//--------------------------------
