@@ -11,10 +11,11 @@ project "Saturn"
 	pchsource "src/stpch.cpp"
 	
 	files {
-		"src/**.h",
-		"src/**.hpp",
-		"src/**.c",
-		"src/**.cpp",
+		"src/Saturn.h",
+		"src/stpch.cpp",
+		"src/stpch.h",
+		"src/Saturn/**.cpp",
+		"src/Saturn/**.h",
 		"vendor/stb_image/**.h",
 		"vendor/stb_image/**.cpp",
 		"vendor/glm/glm/**.hpp",
@@ -40,7 +41,14 @@ project "Saturn"
 
 	filter "system:windows"
 		systemversion "latest"
-
+		
+		files {
+			"src/Platform/Windows/**.cpp",
+			"src/Platform/Windows/**.h",
+			"src/Platform/OpenGL/**.cpp",
+			"src/Platform/OpenGL/**.h",
+		}
+		
 		defines {
 			"GLFW_INCLUDE_NONE",
 			"_CRT_SECURE_NO_WARNINGS"
@@ -48,7 +56,14 @@ project "Saturn"
 
 	filter "system:linux"
 		systemversion "latest"
-
+		
+		files {
+			"src/Platform/Linux/**.cpp",
+			"src/Platform/Linux/**.h",
+			"src/Platform/OpenGL/**.cpp",
+			"src/Platform/OpenGL/**.h",
+		}
+		
 		defines {
 			"GLFW_INCLUDE_NONE"
 		}
