@@ -14,8 +14,8 @@ namespace Saturn
 	struct Renderer2DData
 	{
 		Ref<VertexArray> QuadVA;
-		Ref<Shader> FlatColorShader;
-		Ref<Shader> TextureShader;
+		Ref<Shader> Shader;
+		Ref<Texture2D> WhiteTexture;
 	};
 
 	static Renderer2DData* s_Data;
@@ -44,11 +44,13 @@ namespace Saturn
 		Ref<IndexBuffer> quadIB = IndexBuffer::Create(quadIndices, sizeof(quadIndices) / sizeof(uint32_t));
 		s_Data->QuadVA->SetIndexBuffer(quadIB);
 
-		s_Data->FlatColorShader = Shader::Create("assets/shaders/FlatColor.glsl");
-		s_Data->TextureShader = Shader::Create("assets/shaders/Texture.glsl");
+		s_Data->WhiteTexture = Texture2D::Create(1, 1);
+		uint32_t whiteTextureData = 0xffffffff;
+		s_Data->WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
-		s_Data->TextureShader->Bind();
-		s_Data->TextureShader->SetInt("u_Texture", 0);
+		s_Data->Shader = Shader::Create("assets/shaders/default2D.glsl");
+		s_Data->Shader->Bind();
+		s_Data->Shader->SetInt("u_Texture", 0);
 	}
 
 	void Renderer2D::ShutDown()
@@ -58,11 +60,8 @@ namespace Saturn
 
 	void Renderer2D::BeginScene(const OrthoCamera& camera)
 	{
-		s_Data->FlatColorShader->Bind();
-		s_Data->FlatColorShader->SetMat4f("u_ViewProjection", camera.GetViewProjectionMatrix());
-
-		s_Data->TextureShader->Bind();
-		s_Data->TextureShader->SetMat4f("u_ViewProjection", camera.GetViewProjectionMatrix());
+		s_Data->Shader->Bind();
+		s_Data->Shader->SetMat4f("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
@@ -70,50 +69,40 @@ namespace Saturn
 
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, float rotation)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, color, 0.0f);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
-	{
-		DrawQuad(position, size, color, 0.0f);
+		DrawQuad({ position.x, position.y, 0.0f }, size, color, rotation);
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, float rotation)
 	{
-		s_Data->FlatColorShader->Bind();
-		s_Data->FlatColorShader->SetVec4f("u_Color", color);
+		s_Data->Shader->SetVec4f("u_Color", color);
+		s_Data->WhiteTexture->Bind();
 
 		glm::mat4 id = glm::mat4(1.0f);
 
 		glm::mat4 transform = glm::translate(id, position) * glm::rotate(id, glm::radians(rotation), { 0.0f, 0.0f, 1.0f }) * glm::scale(id, { size.x, size.y, 1.0f });
-		s_Data->FlatColorShader->SetMat4f("u_Transform", transform);
+		s_Data->Shader->SetMat4f("u_Transform", transform);
 		
 		s_Data->QuadVA->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVA);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture>& texture)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, texture, 0.0f);
+		DrawQuad({ position.x, position.y, 0.0f }, size, texture, rotation, tint);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
 	{
-		DrawQuad(position, size, texture, 0.0f);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation)
-	{
-		s_Data->TextureShader->Bind();
+		s_Data->Shader->SetVec4f("u_Color", tint);
+		texture->Bind();
 
 		glm::mat4 id = glm::mat4(1.0f);
 
 		glm::mat4 transform = glm::translate(id, position) * glm::rotate(id, glm::radians(rotation), { 0.0f, 0.0f, 1.0f }) * glm::scale(id, { size.x, size.y, 1.0f });
-		s_Data->TextureShader->SetMat4f("u_Transform", transform);
+		s_Data->Shader->SetMat4f("u_Transform", transform);
 
-		texture->Bind();
 
 		s_Data->QuadVA->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVA);
