@@ -13,7 +13,7 @@ namespace Saturn
 	{
 		std::string Name;
 		long long Start, End;
-		uint32_t ThreadID;
+		size_t ThreadID;
 	};
 
 	struct InstrumentationSession
