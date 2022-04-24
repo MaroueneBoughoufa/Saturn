@@ -19,17 +19,28 @@ void Sandbox2D::OnDetach()
 
 void Sandbox2D::OnUpdate(Saturn::Timestep ts)
 {
+	ST_PROFILE_FUNCTION();
+
 	// Update
-	m_CameraController.OnUpdate(ts);
+	{
+		ST_PROFILE_SCOPE("CameraController::OnUpdate");
+		m_CameraController.OnUpdate(ts);
+	}
 
 	// Render
-	Saturn::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-	Saturn::RenderCommand::Clear();
+	{
+		ST_PROFILE_SCOPE("Renderer Prep");
+		Saturn::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+		Saturn::RenderCommand::Clear();
+	}
 
-	Saturn::Renderer2D::BeginScene(m_CameraController.GetCamera());
-	Saturn::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.0f }, m_SquareSize, m_SquareColor, m_SquareRotation);
-	Saturn::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.0f }, m_SquareSize, m_Texture, m_SquareRotation, m_TextureTint);
-	Saturn::Renderer2D::EndScene();
+	{
+		ST_PROFILE_SCOPE("Renderer Draw");
+		Saturn::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		Saturn::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.0f }, m_SquareSize, m_SquareColor, m_SquareRotation);
+		Saturn::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.0f }, m_SquareSize, m_Texture, m_SquareRotation, m_TextureTint);
+		Saturn::Renderer2D::EndScene();
+	}
 }
 
 void Sandbox2D::OnEvent(Saturn::Event& e)

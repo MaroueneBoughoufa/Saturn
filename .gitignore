@@ -29,3 +29,5 @@ Makefile
 .vscode/
 scripts/__pycache__/
 vendor/premake/bin/
+
+*.json

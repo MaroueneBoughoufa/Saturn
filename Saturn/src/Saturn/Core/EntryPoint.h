@@ -7,14 +7,18 @@
 
 extern Saturn::Application* Saturn::CreateApplication();
 
-int main(int argc, char** argv[])
+int main(int argc, char** argv)
 {
 	Saturn::Log::Init();
-	ST_CORE_WARN("Initiallized Logg.");
-	ST_INFO("Hello! Welcome to the <Saturn Engine> !");
 
+	ST_PROFILE_BEGIN_SESSION("Startup", "startup.stprofile.json");
 	auto app = Saturn::CreateApplication();
+	ST_PROFILE_END_SESSION();
+	
+	ST_PROFILE_BEGIN_SESSION("Runtime", "runtime.stprofile.json");
 	app->Run();
+	ST_PROFILE_END_SESSION();
+	
 	delete app;
 }
 
@@ -24,12 +28,9 @@ int main(int argc, char** argv[])
 
 extern Saturn::Application* Saturn::CreateApplication();
 
-int main(int argc, char* argv[])
+int main(int argc, char* argv)
 {
 	Saturn::Log::Init();
-	ST_CORE_WARN("Initiallized Logg.");
-	ST_INFO("Hello! Welcome to the <Saturn Engine> !");
-
 	auto app = Saturn::CreateApplication();
 	app->Run();
 	delete app;

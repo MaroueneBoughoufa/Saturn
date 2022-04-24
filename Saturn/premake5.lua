@@ -39,9 +39,14 @@ project "Saturn"
 		"opengl32.lib"
 	}
 
-	filter "system:windows"
-		systemversion "latest"
-		
+	systemversion "latest"
+	
+	defines {
+		"GLFW_INCLUDE_NONE",
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+	
+	filter "system:windows"		
 		files {
 			"src/Platform/Windows/**.cpp",
 			"src/Platform/Windows/**.h",
@@ -49,23 +54,13 @@ project "Saturn"
 			"src/Platform/OpenGL/**.h",
 		}
 		
-		defines {
-			"GLFW_INCLUDE_NONE",
-			"_CRT_SECURE_NO_WARNINGS"
-		}
 
-	filter "system:linux"
-		systemversion "latest"
-		
+	filter "system:linux"		
 		files {
 			"src/Platform/Linux/**.cpp",
 			"src/Platform/Linux/**.h",
 			"src/Platform/OpenGL/**.cpp",
 			"src/Platform/OpenGL/**.h",
-		}
-		
-		defines {
-			"GLFW_INCLUDE_NONE"
 		}
 
 	filter "configurations:Debug"

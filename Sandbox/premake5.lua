@@ -25,6 +25,10 @@ project "Sandbox"
 		"Saturn"
 	}
 
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	systemversion "latest"
 
 	filter "configurations:Debug"
