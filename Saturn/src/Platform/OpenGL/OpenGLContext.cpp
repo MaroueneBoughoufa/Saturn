@@ -18,11 +18,6 @@ namespace Saturn
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		ST_CORE_ASSERT(status, "Failed to initialize Glad!");
 
-		ST_CORE_INFO("OpenGL Info:");
-		ST_CORE_INFO("\tGPU: {0}", glGetString(GL_RENDERER));
-		ST_CORE_INFO("\tVersion: {0}", glGetString(GL_VERSION));
-		ST_CORE_INFO("\tVendor: {0}", glGetString(GL_VENDOR));
-
 	#ifdef ST_ENABLE_ASSERT
 		int versionMajor;
 		int versionMinor;
