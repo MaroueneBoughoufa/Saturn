@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include "DebugBreak.h"
+
 // Platform Detection
 #ifdef _WIN32
 	#ifdef _WIN64
@@ -47,7 +49,7 @@
 		#else
 			#define SATURN_API __declspec(dllimport)
 		#endif
-	#elif defined __GNUC__
+	#elif defined (__GNUC__)
 		#define SATURN_API __attribute__((visibility("default")))
 	#endif
 #else
@@ -56,8 +58,8 @@
 // End of DLL support
 
 #ifdef ST_ENABLE_ASSERT
-	#define ST_ASSERT(x, ...) { if(!(x)) { ST_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define ST_CORE_ASSERT(x, ...) { if(!(x)) { ST_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define ST_ASSERT(x, ...) { if(!(x)) { ST_ERROR("Assertion Failed: {0}", __VA_ARGS__); debug_break(); } }
+	#define ST_CORE_ASSERT(x, ...) { if(!(x)) { ST_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); debug_break(); } }
 #else
 	#define ST_ASSERT(x, ...)
 	#define ST_CORE_ASSERT(x, ...)
