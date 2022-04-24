@@ -1,13 +1,18 @@
 #include "stpch.h"
+#include "Saturn/Core/Core.h"
 
 #ifdef ST_PLATFORM_LINUX
 #include "LinuxWindow.h"
 
-#include <GLFW/glfw3.h>
+#include "Saturn/Events/ApplicationEvent.h"
+#include "Saturn/Events/MouseEvent.h"
+#include "Saturn/Events/KeyEvent.h"
+
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Saturn
 {
-	static bool s_GLFWInitialized = false;
+	static uint8_t s_GLFWWindowCount = 0;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
@@ -16,7 +21,7 @@ namespace Saturn
 
 	Window* Window::Create(const WindowProps& props)
 	{
-		return new Win32Window(props);
+		return new LinuxWindow(props);
 	}
 
 	LinuxWindow::LinuxWindow(const WindowProps& props)
@@ -37,20 +42,19 @@ namespace Saturn
 
 		ST_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-		if (!s_GLFWInitialized)
+		if (s_GLFWWindowCount == 0)
 		{
-			// TODO: glfwTerminate on system shutdown
+			ST_CORE_INFO("Initializing GLFW");
 			int success = glfwInit();
 			ST_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
+		s_GLFWWindowCount++;
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		ST_CORE_ASSERT(status, "Failed to initialize Glad!");
+		m_Context = CreateScope<OpenGLContext>(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -146,12 +150,18 @@ namespace Saturn
 	void LinuxWindow::ShutDown()
 	{
 		glfwDestroyWindow(m_Window);
+
+		if (--s_GLFWWindowCount == 0)
+		{
+			ST_CORE_INFO("Terminating GLFW");
+			glfwTerminate();
+		}
 	}
 
 	void LinuxWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void LinuxWindow::SetVSync(bool enabled)
