@@ -23,6 +23,11 @@ namespace Saturn
 		PushOverlay(m_ImGuiLayer);
 	}
 
+	Application::~Application()
+	{
+		Renderer::ShutDown();
+	}
+
 	void Application::PushLayer(Layer* layer)
 	{
 		ST_PROFILE_FUNCTION();

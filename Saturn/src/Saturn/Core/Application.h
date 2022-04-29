@@ -18,7 +18,7 @@ namespace Saturn
 	{
 	public:
 		Application();
-		virtual ~Application() = default;
+		~Application();
 
 		void Run();
 

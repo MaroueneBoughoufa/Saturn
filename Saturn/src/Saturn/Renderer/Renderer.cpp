@@ -15,6 +15,12 @@ namespace Saturn
 		Renderer2D::Init();
 	}
 
+	void Renderer::ShutDown()
+	{
+		ST_PROFILE_FUNCTION();
+		Renderer2D::ShutDown();
+	}
+
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
 	{
 		RenderCommand::SetViewport(0, 0, width, height);
@@ -31,6 +37,7 @@ namespace Saturn
 
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4 transform)
 	{
+		ST_PROFILE_FUNCTION();
 		shader->Bind();
 		shader->SetMat4f("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
 		shader->SetMat4f("u_Transform", transform);
