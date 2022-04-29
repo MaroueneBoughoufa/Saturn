@@ -9,6 +9,8 @@ namespace Saturn
 
 	void Renderer::Init()
 	{
+		ST_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

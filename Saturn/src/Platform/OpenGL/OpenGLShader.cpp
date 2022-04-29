@@ -19,41 +19,57 @@ namespace Saturn
 
 	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
+		ST_PROFILE_FUNCTION();
+
 		UploadUniformInt(name, value);
 	}
 
 	void OpenGLShader::SetFloat(const std::string& name, float value)
 	{
+		ST_PROFILE_FUNCTION();
+
 		UploadUniformFloat(name, value);
 	}
 
 	void OpenGLShader::SetVec2f(const std::string& name, const glm::vec2& value)
 	{
+		ST_PROFILE_FUNCTION();
+
 		UploadUniformVec2f(name, value);
 	}
 
 	void OpenGLShader::SetVec3f(const std::string& name, const glm::vec3& value)
 	{
+		ST_PROFILE_FUNCTION();
+
 		UploadUniformVec3f(name, value);
 	}
 
 	void OpenGLShader::SetVec4f(const std::string& name, const glm::vec4& value)
 	{
+		ST_PROFILE_FUNCTION();
+
 		UploadUniformVec4f(name, value);
 	}
 
 	void OpenGLShader::SetMat4f(const std::string& name, const glm::mat4& value)
 	{
+		ST_PROFILE_FUNCTION();
+
 		UploadUniformMat4(name, value);
 	}
 
 	void OpenGLShader::SetMat3f(const std::string& name, const glm::mat3& value)
 	{
+		ST_PROFILE_FUNCTION();
+
 		UploadUniformMat3(name, value);
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		ST_PROFILE_FUNCTION();
+
 		std::string src = ReadFile(filepath);
 		auto shaderSources = Preprocess(src);
 		Compile(shaderSources);
@@ -69,6 +85,8 @@ namespace Saturn
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		: m_Name(name)
 	{
+		ST_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
 		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -78,11 +96,15 @@ namespace Saturn
 
 	OpenGLShader::~OpenGLShader()
 	{
+		ST_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSrcs)
 	{
+		ST_PROFILE_FUNCTION();
+
 		GLuint program = glCreateProgram();
 		ST_CORE_ASSERT(shaderSrcs.size() <= 2, "Only 2 shaders can be supported for now.");
 		std::array<GLenum, 2> glShaderIDs;
@@ -155,6 +177,8 @@ namespace Saturn
 
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
+		ST_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
@@ -183,6 +207,8 @@ namespace Saturn
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::Preprocess(const std::string& shaderSrc)
 	{
+		ST_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -209,11 +235,15 @@ namespace Saturn
 
 	void OpenGLShader::Bind() const
 	{
+		ST_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Unbind() const
 	{
+		ST_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 

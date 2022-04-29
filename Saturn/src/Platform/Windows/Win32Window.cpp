@@ -19,23 +19,26 @@ namespace Saturn
 		ST_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props)
+	Scope<Window> Window::Create(const WindowProps& props)
 	{
-		return new Win32Window(props);
+		return CreateScope<Win32Window>(props);
 	}
 
 	Win32Window::Win32Window(const WindowProps& props)
 	{
+		ST_PROFILE_FUNCTION();
 		Init(props);
 	}
 
 	Win32Window::~Win32Window()
 	{
+		ST_PROFILE_FUNCTION();
 		ShutDown();
 	}
 
 	void Win32Window::Init(const WindowProps& props)
 	{
+		ST_PROFILE_FUNCTION();
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -44,6 +47,7 @@ namespace Saturn
 
 		if (s_GLFWWindowCount == 0)
 		{
+			ST_PROFILE_SCOPE("glfwInit");
 			ST_CORE_INFO("Initializing GLFW");
 			int success = glfwInit();
 			ST_CORE_ASSERT(success, "Could not initialize GLFW!");
@@ -149,6 +153,7 @@ namespace Saturn
 
 	void Win32Window::ShutDown()
 	{
+		ST_PROFILE_FUNCTION();
 		glfwDestroyWindow(m_Window);
 
 		if (--s_GLFWWindowCount == 0)
@@ -160,12 +165,15 @@ namespace Saturn
 
 	void Win32Window::OnUpdate()
 	{
+		ST_PROFILE_FUNCTION();
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void Win32Window::SetVSync(bool enabled)
 	{
+		ST_PROFILE_FUNCTION();
+
 		if (enabled)
 		{
 			glfwSwapInterval(1);

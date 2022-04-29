@@ -22,6 +22,8 @@ namespace Saturn
 
 	void Renderer2D::Init()
 	{
+		ST_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DData();
 		s_Data->QuadVA = VertexArray::Create();
 
@@ -55,17 +57,22 @@ namespace Saturn
 
 	void Renderer2D::ShutDown()
 	{
+		ST_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthoCamera& camera)
 	{
+		ST_PROFILE_FUNCTION();
+
 		s_Data->Shader->Bind();
 		s_Data->Shader->SetMat4f("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
 	{
+		ST_PROFILE_FUNCTION();
 
 	}
 
@@ -76,6 +83,8 @@ namespace Saturn
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, float rotation)
 	{
+		ST_PROFILE_FUNCTION();
+
 		s_Data->Shader->SetVec4f("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 
@@ -95,6 +104,8 @@ namespace Saturn
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
 	{
+		ST_PROFILE_FUNCTION();
+
 		s_Data->Shader->SetVec4f("u_Color", tint);
 		texture->Bind();
 

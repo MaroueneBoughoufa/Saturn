@@ -19,7 +19,9 @@ int main(int argc, char** argv)
 	app->Run();
 	ST_PROFILE_END_SESSION();
 	
+	ST_PROFILE_BEGIN_SESSION("Shutdown", "shutdown.stprofile.json");
 	delete app;
+	ST_PROFILE_END_SESSION();
 }
 
 #endif

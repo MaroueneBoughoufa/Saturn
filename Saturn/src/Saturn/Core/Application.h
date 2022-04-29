@@ -1,18 +1,16 @@
 #pragma once
 
 #include "Core.h"
+#include "Window.h"
 #include "LayerStack.h"
+#include "Timestep.h"
 
 #include "Saturn/Events/Event.h"
 #include "Saturn/Events/ApplicationEvent.h"
 
-#include "Window.h"
-
 #include "Saturn/Renderer/Renderer.h"
 
 #include "Saturn/ImGui/ImGuiLayer.h"
-
-#include "Timestep.h"
 
 namespace Saturn
 {
