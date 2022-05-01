@@ -8,9 +8,9 @@ if not defined DevEnvDir (
 
 set config="Dist"
 
-if "~%1" == "Debug" ( set config="Debug" )
-if "~%1" == "Release" ( set config="Release" )
-if "~%1" == "Dist" ( set config="Dist" )
+if "%1" == "Debug" ( set config="Debug" )
+if "%1" == "Release" ( set config="Release" )
+if "%1" == "Dist" ( set config="Dist" )
 
 set solutionFile="SaturnEngine.sln"
 msbuild -m /t:Build /p:Configuration=%config% /p:Platform=x64 %solutionFile%
