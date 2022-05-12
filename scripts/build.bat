@@ -8,11 +8,17 @@ if not defined DevEnvDir (
 
 set config="Dist"
 
+set solutionFile="SaturnEngine.sln"
+
 if "%1" == "Debug" ( set config="Debug" )
 if "%1" == "Release" ( set config="Release" )
 if "%1" == "Dist" ( set config="Dist" )
 
-set solutionFile="SaturnEngine.sln"
+if not exist %solutionFile% (
+	call premake.bat vs2019
+)
+
+
 msbuild -m /t:Build /p:Configuration=%config% /p:Platform=x64 %solutionFile%
 
 popd
