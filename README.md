@@ -1,4 +1,4 @@
-# Saturn
+# Saturn ![License](https://github.com/MaroueneBoughoufa/Saturn/blob/master/LICENSE)
 A 2D game engine (currently a WIP).
 
 # Build instructions
@@ -24,10 +24,13 @@ A 2D game engine (currently a WIP).
 2. Configure dependencies
 
     Run the [setup.bat](./scripts/setup.bat) file found in the `scripts` folder. This will download the required prerequisites for the project if they are not present yet.
-    After that run `premake.bat vs2019` to generate a visual studio 2019 project.
+
+3. Generate the project files:
+	
+	Run `premake.bat vs2019` to generate a visual studio project.
 
 ## Compiling on Windows:
 
-	- Simply run [build.bat](./scripts/build.bat) to generate binaries.
+- Simply run [build.bat](./scripts/build.bat) to generate binaries.
 
 If changes are made, or if you want to regenerate project files, rerun `premake.bat vs2019`.
