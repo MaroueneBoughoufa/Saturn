@@ -37,8 +37,8 @@ void Sandbox2D::OnUpdate(Saturn::Timestep ts)
 	{
 		ST_PROFILE_SCOPE("Renderer Draw");
 		Saturn::Renderer2D::BeginScene(m_CameraController.GetCamera());
-		Saturn::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.0f }, m_SquareSize, m_SquareColor, m_SquareRotation);
-		Saturn::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.0f }, m_SquareSize, m_Texture, m_SquareRotation, m_TextureTint);
+		Saturn::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f, 0.0f }, m_SquareSize, m_SquareRotation, m_SquareColor);
+		Saturn::Renderer2D::DrawRotatedQuad({ 1.0f, 0.0f, 0.0f }, m_SquareSize, m_Texture, m_SquareRotation, m_TextureTint);
 		Saturn::Renderer2D::EndScene();
 	}
 }

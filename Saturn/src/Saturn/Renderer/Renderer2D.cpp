@@ -76,12 +76,84 @@ namespace Saturn
 
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, float rotation)
+	//////////////////////////////
+	// Regular Quads /////////////
+	//////////////////////////////
+
+	/* Untextured Quads */
+
+	void Renderer2D::DrawQuad(Quad& quad)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, color, rotation);
+		DrawQuad({ quad.position.x, quad.position.y, 0.0f }, quad.size, quad.color);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, float rotation)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, size, color);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+	{
+		ST_PROFILE_FUNCTION();
+
+		s_Data->Shader->SetVec4f("u_Color", color);
+		s_Data->WhiteTexture->Bind();
+
+		glm::mat4 id = glm::mat4(1.0f);
+
+		glm::mat4 transform = glm::translate(id, position) * glm::scale(id, { size.x, size.y, 1.0f });
+		s_Data->Shader->SetMat4f("u_Transform", transform);
+
+		s_Data->QuadVA->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVA);
+	}
+
+	/* Textured Quads */
+	
+	void Renderer2D::DrawQuad(Quad& quad, Ref<Texture> texture)
+	{
+		DrawQuad({ quad.position.x, quad.position.y, 0.0f }, quad.size, texture, quad.color);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& tint)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, size, texture, tint);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& tint)
+	{
+		ST_PROFILE_FUNCTION();
+
+		s_Data->Shader->SetVec4f("u_Color", tint);
+		texture->Bind();
+
+		glm::mat4 id = glm::mat4(1.0f);
+
+		glm::mat4 transform = glm::translate(id, position) * glm::scale(id, { size.x, size.y, 1.0f });
+		s_Data->Shader->SetMat4f("u_Transform", transform);
+
+
+		s_Data->QuadVA->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVA);
+	}
+
+	//////////////////////////////
+	// Rotated Quads /////////////
+	//////////////////////////////
+	
+	/* Untextured Quads */
+
+	void Renderer2D::DrawRotatedQuad(Quad& quad, float rotation)
+	{
+		DrawRotatedQuad({ quad.position.x, quad.position.y, 0.0f }, quad.size, rotation, quad.color);
+	}
+	
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color)
+	{
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, color);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
 		ST_PROFILE_FUNCTION();
 
@@ -97,12 +169,19 @@ namespace Saturn
 		RenderCommand::DrawIndexed(s_Data->QuadVA);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
+	void Renderer2D::DrawRotatedQuad(Quad& quad, Ref<Texture> texture, float rotation)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, texture, rotation, tint);
+		DrawRotatedQuad({ quad.position.x, quad.position.y, 0.0f }, quad.size, texture, rotation, quad.color);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
+	/* Textured Quads */
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
+	{
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, texture, rotation, tint);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
 	{
 		ST_PROFILE_FUNCTION();
 
