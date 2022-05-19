@@ -4,10 +4,10 @@
             "label": "Build Everything",
             "type": "shell",
             "windows": {
-                "command": "%{workspaceFolder}/scripts/build.bat",
+                "command": "${workspaceFolder}/scripts/build.bat",
             },
             "options": {
-                "cwd": "%{workspaceFolder}"
+                "cwd": "${workspaceFolder}"
             },
             "group": "build"
         },
@@ -15,10 +15,10 @@
             "label": "Build Sandbox",
             "type": "shell",
             "windows": {
-                "command": "%{workspaceFolder}/Sandbox/build.bat"
+                "command": "${workspaceFolder}/Sandbox/build.bat"
             },
             "options": {
-                "cwd": "%{workspaceFolder}/Sandbox"
+                "cwd": "${workspaceFolder}/Sandbox"
             },
             "group": "build"
         },
@@ -26,10 +26,10 @@
             "label": "Build Engine",
             "type": "shell",
             "windows": {
-                "command": "%{workspaceFolder}/Saturn/build.bat"
+                "command": "${workspaceFolder}/Saturn/build.bat"
             },
             "options": {
-                "cwd": "%{workspaceFolder}/Saturn"
+                "cwd": "${workspaceFolder}/Saturn"
             },
             "group": "build"
         },
@@ -37,10 +37,10 @@
             "label": "Clean Everything",
             "type": "shell",
             "windows": {
-                "command": "%{workspaceFolder}/premake.bat clean"
+                "command": "${workspaceFolder}/premake.bat clean"
             },
             "options": {
-                "cwd": "%{workspaceFolder}"
+                "cwd": "${workspaceFolder}"
             },
             "group": "build"
         }
