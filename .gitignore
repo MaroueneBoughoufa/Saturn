@@ -26,8 +26,7 @@ Makefile
 *imgui.ini
 
 ## Other stuff
-.vscode/
 scripts/__pycache__/
 vendor/premake/bin/
 
-*.json
+*.stprofile.json

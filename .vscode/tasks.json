@@ -1,0 +1,12 @@
+{
+    "tasks": [
+        {
+            "label": "Build Everything",
+            "type": "shell",
+            "windows": {
+                "command": "%{workspaceFolder}/scripts/build.bat",
+            },
+            "group": "build"
+        }
+    ]
+}
