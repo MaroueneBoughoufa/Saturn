@@ -1,11 +1,20 @@
 {
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.block": "newLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.type": "newLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.function": "newLine",
+    "C_Cpp.vcFormat.indent.braces": true,
+    "C_Cpp.vcFormat.indent.namespaceContents": true,
+    "C_Cpp.vcFormat.space.afterComma": true,
+    "editor.minimap.enabled": true,
     "window.zoomLevel": 0,
     "editor.tabCompletion": "on",
+    "editor.lineNumbers": "on",
     "todohighlight.isEnable": true,
     "todohighlight.keywords": [
         {
             "text": "TODO:",
-            "color": "red",
+            "color": "yellow",
             "backgroundColor": "rgba(0,0,0,0)",
             "overviewRulerColor": "rgba(0,0,0,0)"
         },

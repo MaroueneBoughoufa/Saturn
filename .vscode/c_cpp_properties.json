@@ -3,7 +3,12 @@
     {
         "name": "Linux",
         "includePath": [
-            "${workspaceFolder}/Saturn/src/**"
+            "${workspaceFolder}/Saturn/src/**",
+            "${workspaceFolder}/Saturn/vendor/glm/**",
+            "${workspaceFolder}/Saturn/vendor/glfw/include/**",
+            "${workspaceFolder}/Saturn/vendor/imgui/**",
+            "${workspaceFolder}/Saturn/vendor/spdlog/include/**",
+            "${workspaceFolder}/Saturn/vendor/stb_image/**"
         ],
         "defines": [],
         "compilerPath": "/usr/bin/clang",
@@ -14,14 +19,19 @@
     {
         "name": "Win32",
         "includePath": [
-            "${workspaceFolder}/Saturn/src/**"
+            "${workspaceFolder}/Saturn/src/**",
+            "${workspaceFolder}/Saturn/vendor/glm/**",
+            "${workspaceFolder}/Saturn/vendor/glfw/include/**",
+            "${workspaceFolder}/Saturn/vendor/imgui/**",
+            "${workspaceFolder}/Saturn/vendor/spdlog/include/**",
+            "${workspaceFolder}/Saturn/vendor/stb_image/**"
         ],
         "defines": [],
         "windowsSdkVersion": "10.0.18362.0",
-        "compilerPath": "C:\\Program Files\\LLVM\\bin\\clang.exe",
+        "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe",
         "cStandard": "c17",
         "cppStandard": "c++17",
-        "intelliSenseMode": "clang-x64"
+        "intelliSenseMode": "msvc-x64"
     }
 ],
 "version": 4

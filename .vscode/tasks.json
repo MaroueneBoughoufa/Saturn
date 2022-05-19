@@ -6,7 +6,44 @@
             "windows": {
                 "command": "%{workspaceFolder}/scripts/build.bat",
             },
+            "options": {
+                "cwd": "%{workspaceFolder}"
+            },
+            "group": "build"
+        },
+        {
+            "label": "Build Sandbox",
+            "type": "shell",
+            "windows": {
+                "command": "%{workspaceFolder}/Sandbox/build.bat"
+            },
+            "options": {
+                "cwd": "%{workspaceFolder}/Sandbox"
+            },
+            "group": "build"
+        },
+        {
+            "label": "Build Engine",
+            "type": "shell",
+            "windows": {
+                "command": "%{workspaceFolder}/Saturn/build.bat"
+            },
+            "options": {
+                "cwd": "%{workspaceFolder}/Saturn"
+            },
+            "group": "build"
+        },
+        {
+            "label": "Clean Everything",
+            "type": "shell",
+            "windows": {
+                "command": "%{workspaceFolder}/premake.bat clean"
+            },
+            "options": {
+                "cwd": "%{workspaceFolder}"
+            },
             "group": "build"
         }
-    ]
+    ],
+    "version": "2.0.0"
 }
