@@ -14,23 +14,23 @@ namespace Saturn
 
 	void OrthoCameraController::OnUpdate(Timestep ts)
 	{
-		if (Input::IsKeyPressed(KEY_J))
+		if (Input::IsKeyPressed(KEY_A))
 		{
 			m_CameraPosition.x -=  cos(glm::radians(m_CameraRotation)) * m_CameraSpeed * ts;
 			m_CameraPosition.y -=  sin(glm::radians(m_CameraRotation)) * m_CameraSpeed * ts;
 		}
-		else if (Input::IsKeyPressed(KEY_L))
+		else if (Input::IsKeyPressed(KEY_D))
 		{
 			m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraSpeed * ts;
 			m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraSpeed * ts;
 		}
 
-		if (Input::IsKeyPressed(KEY_I))
+		if (Input::IsKeyPressed(KEY_W))
 		{
 			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraSpeed * ts;
 			m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraSpeed * ts;
 		}
-		else if (Input::IsKeyPressed(KEY_K))
+		else if (Input::IsKeyPressed(KEY_S))
 		{
 			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraSpeed * ts;
 			m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraSpeed * ts;
@@ -38,9 +38,9 @@ namespace Saturn
 
 		if (m_Rotation)
 		{
-			if (Input::IsKeyPressed(KEY_U))
+			if (Input::IsKeyPressed(KEY_Q))
 				m_CameraRotation += m_CameraRotationSpeed * ts;
-			else if (Input::IsKeyPressed(KEY_O))
+			else if (Input::IsKeyPressed(KEY_E))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 			if (m_CameraRotation > 100.0f)
