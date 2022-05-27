@@ -11,17 +11,17 @@ namespace Saturn
 {
 	Scope<Input> Input::s_Instance = CreateScope<Win32Input>();
 
-	bool Win32Input::IsKeyPressedImpl(int keycode)
+	bool Win32Input::IsKeyPressedImpl(KeyCode keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		auto state = glfwGetKey(window, keycode);
+		auto state = glfwGetKey(window, (int)keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool Win32Input::IsMouseButtonPressedImpl(int button)
+	bool Win32Input::IsMouseButtonPressedImpl(MouseCode button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		auto state = glfwGetMouseButton(window, button);
+		auto state = glfwGetMouseButton(window, (int)button);
 		return state == GLFW_PRESS;
 	}
 
