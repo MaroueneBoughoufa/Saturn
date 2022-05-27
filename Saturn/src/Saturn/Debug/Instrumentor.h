@@ -123,17 +123,17 @@ namespace Saturn
 	};
 }
 
-#ifndef ST_PROFILE
-#define ST_PROFILE 1
+#ifndef ST_DIST
+#define ST_PROFILE
 #endif
 
-#if ST_PROFILE
+#ifdef ST_PROFILE
 	#define ST_PROFILE_BEGIN_SESSION(name, filepath) Saturn::Instrumentor::Get().BeginSession(name, filepath)
 	#define ST_PROFILE_END_SESSION() Saturn::Instrumentor::Get().EndSession()
-#define ST_PROFILE_SCOPE(name)  Saturn::InstrumentationTimer timer##__LINE__(name)
+	#define ST_PROFILE_SCOPE(name)  Saturn::InstrumentationTimer timer##__LINE__(name)
 	#define ST_PROFILE_FUNCTION() ST_PROFILE_SCOPE(__FUNCSIG__)
 #else
-	#define ST_PROFILE_BEGIN_SESSION(name) 
+	#define ST_PROFILE_BEGIN_SESSION(name, filepath)
 	#define ST_PROFILE_END_SESSION()
 	#define ST_PROFILE_SCOPE(name)
 	#define ST_PROFILE_FUNCTION()

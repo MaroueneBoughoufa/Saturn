@@ -1,9 +1,23 @@
 @echo off
 
+goto Begin
+
+:Error
+
+echo Could not find MSVC !
+
+goto End
+
+
+:Begin
+
+set vspath="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
+
 pushd %~dp0\..\
 
 if not defined DevEnvDir (
-    call "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
+	if not exist %vspath% ( goto Error )
+	call %vspath%	
 )
 
 set config="Dist"
@@ -26,4 +40,7 @@ msbuild -m /t:Build /p:Configuration=%config% /p:Platform=x64 %solutionFile% %sy
 
 popd
 
+goto End
+
+:End
 PAUSE

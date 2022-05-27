@@ -16,8 +16,3 @@
 // Saturn precompiled headers
 #include "Saturn/Core/Log.h"
 #include "Saturn/Debug/Instrumentor.h"
-
-// Include platform specific headers here
-#ifdef ST_PLATFORM_WINDOWS
-	#include <Windows.h>
-#endif
