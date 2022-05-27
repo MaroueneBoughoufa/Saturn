@@ -2,8 +2,6 @@
 
 #include <memory>
 
-#include "Saturn/Debug/DebugBreak.h"
-
 // Platform Detection
 #ifdef _WIN32
 	#ifdef _WIN64
@@ -36,7 +34,7 @@
 	#error "Android is not supported!"
 #elif defined (__linux__)
 	#define ST_PLATFORM_LINUX
-	#error "Android is not supported!"
+	#error "Linux is not supported!"
 #endif
 // End Platform detection
 
@@ -57,9 +55,18 @@
 #endif
 // End of DLL support
 
+#ifdef ST_DEBUG
+	#if defined(_MSC_VER) && defined (ST_PLATFORM_WINDOWS)
+		#define ST_DEBUG_BREAK() __debugbreak()
+	#else
+		#include <signal.h>
+		#define ST_DEBUG_BREAK() raise(SIGTRAP)
+	#endif
+#endif
+
 #ifdef ST_ENABLE_ASSERT
-	#define ST_ASSERT(x, ...) { if(!(x)) { ST_ERROR("Assertion Failed: {0}", __VA_ARGS__); debug_break(); } }
-	#define ST_CORE_ASSERT(x, ...) { if(!(x)) { ST_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); debug_break(); } }
+	#define ST_ASSERT(x, ...) { if(!(x)) { ST_ERROR("Assertion Failed: {0}", __VA_ARGS__); ST_DEBUG_BREAK(); } }
+	#define ST_CORE_ASSERT(x, ...) { if(!(x)) { ST_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); ST_DEBUG_BREAK(); } }
 #else
 	#define ST_ASSERT(x, ...)
 	#define ST_CORE_ASSERT(x, ...)

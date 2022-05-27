@@ -11,7 +11,7 @@
 //---Input------------------------
 #include "Saturn/Core/Input.h"
 #include "Saturn/Core/KeyCodes.h"
-#include "Saturn/Core/MouseButtonCodes.h"
+#include "Saturn/Core/MouseCodes.h"
 //--------------------------------
 
 
