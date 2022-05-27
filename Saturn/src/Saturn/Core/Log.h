@@ -19,6 +19,7 @@ namespace Saturn
 	};
 }
 
+#ifndef ST_DIST
 // Core Logger macros
 #define ST_CORE_TRACE(...)     Saturn::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define ST_CORE_INFO(...)      Saturn::Log::GetCoreLogger()->info(__VA_ARGS__)
@@ -32,3 +33,15 @@ namespace Saturn
 #define ST_WARN(...)           Saturn::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define ST_ERROR(...)          Saturn::Log::GetClientLogger()->error(__VA_ARGS__)
 #define ST_CRITICAL(...)       Saturn::Log::GetClientLogger()->critical(__VA_ARGS__)
+#else
+#define ST_CORE_TRACE(...)   
+#define ST_CORE_INFO(...)    
+#define ST_CORE_WARN(...)    
+#define ST_CORE_ERROR(...)   
+#define ST_CORE_CRITICAL(...)
+#define ST_TRACE(...)   
+#define ST_INFO(...)    
+#define ST_WARN(...)    
+#define ST_ERROR(...)   
+#define ST_CRITICAL(...)
+#endif

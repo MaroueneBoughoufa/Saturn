@@ -64,10 +64,7 @@ project "Saturn"
 		}
 
 	filter "configurations:Debug"
-		defines {
-			"ST_DEBUG",
-			"ST_ENABLE_ASSERT"
-		}
+		defines { "ST_DEBUG" }
 		runtime "Debug"
 		symbols "on"
 	
@@ -75,8 +72,10 @@ project "Saturn"
 		defines "ST_RELEASE"
 		runtime "Release"
 		optimize "on"
+		symbols "on"
 
 	filter "configurations:Dist"
 		defines "ST_DIST"
 		runtime "Release"
 		optimize "on"
+		symbols "off"
