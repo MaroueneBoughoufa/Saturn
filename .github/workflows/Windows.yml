@@ -1,33 +1,33 @@
 name: CI(Windows)
 
 on:
-    push:
-        branches: [main]
+  push:
+    branches: [main]
     pull_request:
-        branches: [main]
+      branches: [main]
 jobs:
-    build:
-        runs-on: windows-latest
+  build:
+    runs-on: windows-latest
     defaults:
-        run:
-            shell: cmd
+      run:
+        shell: cmd
     steps:
-        - uses: actions/checkout@v2
-        
-        - name: Generate Submodules
-          run: git submodule update --init
-        
-        - name: Setup msbuild
-          uses: microsoft/setup-msbuild@v1.1
+      - uses: actions/checkout@v2
+       
+      - name: Generate Submodules
+        run: git submodule update --init
+     
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v1.1
 
-        - name: Setup Python
-          uses: actions/setup-python@v3.1.2
+      - name: Setup Python
+        uses: actions/setup-python@v3.1.2
         
-        - name: Download Premake
-          run: scripts/setup.bat
+      - name: Download Premake
+        run: scripts/setup.bat
         
-        - name: Generate Project Files
-          run: premake.bat
+      - name: Generate Project Files
+        run: premake.bat
         
-        - name: Build Solution
-          run: scripts/build.bat
+      - name: Build Solution
+        run: scripts/build.bat
