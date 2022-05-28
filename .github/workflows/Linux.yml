@@ -1,0 +1,33 @@
+name: CI(Linux)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+       
+      - name: Generate Submodules
+        run: git submodule update --init
+     
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Setup Python
+        uses: actions/setup-python@v3.1.2
+        
+      - name: Download Premake
+        run: cd scripts && python3 setup.py && cd ..
+        
+      - name: Generate Project Files
+        run: ./vendor/premake/bin/premake5 gmake2
+        
+      - name: Build Solution
+        run: make
