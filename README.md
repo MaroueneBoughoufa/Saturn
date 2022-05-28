@@ -1,4 +1,4 @@
-# Saturn [![License](https://img.shields.io/apm/l/vim-mode)](https://github.com/MaroueneBoughoufa/Saturn/blob/master/LICENSE) [![Repo Size](https://img.shields.io/github/repo-size/MaroueneBoughoufa/Saturn)]
+# Saturn [![License](https://img.shields.io/apm/l/vim-mode)](https://github.com/MaroueneBoughoufa/Saturn/blob/master/LICENSE) ![Repo Size](https://img.shields.io/github/repo-size/MaroueneBoughoufa/Saturn)
 A 2D game engine (currently a WIP).
 
 # Build instructions
