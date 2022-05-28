@@ -17,7 +17,3 @@
 [submodule "vendor/premake/premake_customization/workspaces/vscode"]
 	path = vendor/premake/premake_customization/workspaces/vscode
 	url = https://github.com/MaroueneBoughoufa/premake-vscode.git
-[submodule "vendor/premake/premake_customization/workspaces/codeblocks"]
-	path = vendor/premake/premake_customization/workspaces/codeblocks
-	url = https://github.com/MaroueneBoughoufa/premake-codeblocks.git
-	branch = no-message
