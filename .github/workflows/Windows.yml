@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-python@v3.1.2
         
       - name: Download Premake
-        run: scripts/setup.bat
+        run: pushd scripts && setup.bat && popd
         
       - name: Generate Project Files
         run: premake.bat
