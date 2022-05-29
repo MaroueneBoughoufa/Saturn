@@ -22,7 +22,10 @@ jobs:
       
       - name: Install Build-Essentials
         run: sudo apt install build-essential
-        
+      
+      - name: Install Xorg-Dev
+        run: sudo apt install xorg-dev
+
       - name: Download Premake
         uses: BEASTSM96/premake-action@v1.3
         
