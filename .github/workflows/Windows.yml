@@ -19,15 +19,12 @@ jobs:
      
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v1.1
-
-      - name: Setup Python
-        uses: actions/setup-python@v3.1.2
         
       - name: Download Premake
-        run: pushd scripts && setup.bat && popd
+        uses: BEASTSM96/premake-action@v1.3
         
       - name: Generate Project Files
-        run: premake.bat
+        run: tpremake\premake5.exe vs2022
         
       - name: Build Solution
-        run: scripts/build.bat
+        run: msbuild -m /t:Build /p:Configuration=Dist /p:Platform=x64 /system:windows SaturnEngine.sln
