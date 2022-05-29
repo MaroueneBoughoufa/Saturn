@@ -17,8 +17,11 @@ jobs:
       - name: Generate Submodules
         run: git submodule update --init
 
-      - name: Setup GCC
-        run: sudo apt-get update && sudo apt install build-essential
+      - name: Update packages
+        run: sudo apt-get update
+      
+      - name: Install Build-Essentials
+        run: sudo apt install build-essential
         
       - name: Download Premake
         uses: BEASTSM96/premake-action@v1.3
