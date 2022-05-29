@@ -26,7 +26,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 group "Dependencies"
 	include "Saturn/vendor/glfw"
-	include "Saturn/vendor/glad"
+	include "Saturn/vendor/Glad"
 	include "Saturn/vendor/imgui"
 group ""
 
