@@ -8,6 +8,8 @@
 #include "Saturn/Events/MouseEvent.h"
 #include "Saturn/Events/KeyEvent.h"
 
+#include "Saturn/Renderer/Renderer.h"
+
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Saturn
@@ -47,15 +49,21 @@ namespace Saturn
 
 		if (s_GLFWWindowCount == 0)
 		{
-			ST_PROFILE_SCOPE("glfwInit");
 			ST_CORE_INFO("Initializing GLFW");
 			int success = glfwInit();
 			ST_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		s_GLFWWindowCount++;
+		{
+			ST_PROFILE_SCOPE("glfwCreateWindow");
+		#ifdef ST_DEBUG
+			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+		#endif
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			s_GLFWWindowCount++;
+		}
 
 		m_Context = CreateScope<OpenGLContext>(m_Window);
 		m_Context->Init();
