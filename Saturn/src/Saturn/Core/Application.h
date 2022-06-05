@@ -14,13 +14,16 @@
 
 namespace Saturn
 {
+	int Main(int agrc, char* argv[]);
+}
+
+namespace Saturn
+{
 	class Application
 	{
 	public:
 		Application();
 		~Application();
-
-		void Run();
 
 		void OnEvent(Event& e);
 
@@ -30,9 +33,11 @@ namespace Saturn
 		inline Window& GetWindow() { return *m_Window; }
 		inline static Application& Get() { return *s_Instance; }
 	private:
+		void Run();
+		
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
-
+	private:
 		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
@@ -41,6 +46,8 @@ namespace Saturn
 		float m_LastFrameTime = 0.0f;
 
 		static Application* s_Instance;
+
+		friend int Saturn::Main(int argc, char* argv[]);
 	};
 
 	// To be defined in client
