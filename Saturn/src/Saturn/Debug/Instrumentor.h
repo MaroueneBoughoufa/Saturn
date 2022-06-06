@@ -3,15 +3,19 @@
 #include <algorithm>
 #include <chrono>
 #include <fstream>
+#include <iomanip>
 #include <string>
 #include <thread>
 
 namespace Saturn
 {
+	using FloatMicroseconds = std::chrono::duration<double, std::micro>;
+
 	struct ProfileResult
 	{
 		std::string Name;
-		long long Start, End;
+		FloatMicroseconds Start;
+		std::chrono::microseconds ElapsedTime;
 		std::thread::id ThreadID;
 	};
 
@@ -47,13 +51,18 @@ namespace Saturn
 				}
 				InternalEndSession();
 			}
+			
 			m_OutputStream.open(filepath);
-			if (m_OutputStream.is_open()) {
+
+			if (m_OutputStream.is_open())
+			{
 				m_CurrentSession = new InstrumentationSession({ name });
 				WriteHeader();
 			}
-			else {
-				if (Log::GetCoreLogger()) { // Edge case: BeginSession() might be before Log::Init()
+			else
+			{
+				if (Log::GetCoreLogger()) // Edge case: BeginSession() might be before Log::Init()
+				{ 
 					ST_CORE_ERROR("Instrumentor could not open results file '{0}'.", filepath);
 				}
 			}
@@ -72,19 +81,21 @@ namespace Saturn
 			std::string name = result.Name;
 			std::replace(name.begin(), name.end(), '"', '\'');
 
+			json << std::setprecision(3) << std::fixed;
 			json << ",{";
 			json << "\"cat\":\"function\",";
-			json << "\"dur\":" << (result.End - result.Start) << ',';
+			json << "\"dur\":" << (result.ElapsedTime.count()) << ',';
 			json << "\"name\":\"" << name << "\",";
 			json << "\"ph\":\"X\",";
 			json << "\"pid\":0,";
 			json << "\"tid\":" << result.ThreadID << ",";
-			json << "\"ts\":" << result.Start;
+			json << "\"ts\":" << result.Start.count();
 			json << "}";
 
 			std::lock_guard lock(m_Mutex);
 
-			if (m_CurrentSession) {
+			if (m_CurrentSession)
+			{
 				m_OutputStream << json.str();
 				m_OutputStream.flush();
 			}
@@ -111,8 +122,10 @@ namespace Saturn
 
 		// Note: you must already own lock on m_Mutex before
 		// calling InternalEndSession()
-		void InternalEndSession() {
-			if (m_CurrentSession) {
+		void InternalEndSession()
+		{
+			if (m_CurrentSession)
+			{
 				WriteFooter();
 				m_OutputStream.close();
 				delete m_CurrentSession;
@@ -127,7 +140,7 @@ namespace Saturn
 		InstrumentationTimer(const char* name)
 			: m_Name(name), m_Stopped(false)
 		{
-			m_StartTimepoint = std::chrono::high_resolution_clock::now();
+			m_StartTimepoint = std::chrono::steady_clock::now();
 		}
 
 		~InstrumentationTimer()
@@ -138,18 +151,15 @@ namespace Saturn
 
 		void Stop()
 		{
-			auto endTimepoint = std::chrono::high_resolution_clock::now();
-
-			long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
-			long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
-
-			Instrumentor::Get().WriteProfile({ m_Name, start, end, std::this_thread::get_id() });
-
+			auto endTimepoint = std::chrono::steady_clock::now();
+			auto highResStart = FloatMicroseconds{ m_StartTimepoint.time_since_epoch() };
+			auto elapsedTime = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch() - std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch();
+			Instrumentor::Get().WriteProfile({ m_Name, highResStart, elapsedTime, std::this_thread::get_id() });
 			m_Stopped = true;
 		}
 	private:
 		const char* m_Name;
-		std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
+		std::chrono::time_point<std::chrono::steady_clock> m_StartTimepoint;
 		bool m_Stopped;
 	};
 }

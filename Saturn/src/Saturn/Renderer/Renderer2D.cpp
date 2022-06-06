@@ -16,87 +16,102 @@ namespace Saturn
 		glm::vec3 Position;
 		glm::vec4 Color;
 		glm::vec2 TexCoord;
+		// TODO: texid
 	};
+
 
 	struct Renderer2DData
 	{
-		static const uint32_t MaxQuads = 10000;
-		static const uint32_t MaxVertices = MaxQuads * 4;
-		static const uint32_t MaxIndices = MaxQuads * 6;
+		const uint32_t MaxQuads = 10000;
+		const uint32_t MaxVertices = MaxQuads * 4;
+		const uint32_t MaxIndices = MaxQuads * 6;
 
-		Ref<VertexArray> QuadVA;
-		Ref<VertexBuffer> QuadVB;
-		Ref<Shader> Shader;
+		Ref<VertexArray> QuadVertexArray;
+		Ref<VertexBuffer> QuadVertexBuffer;
+		Ref<Shader> TextureShader;
 		Ref<Texture2D> WhiteTexture;
+
+		uint32_t QuadIndexCount = 0;
+		QuadVertex* QuadVertexBufferBase = nullptr;
+		QuadVertex* QuadVertexBufferPtr = nullptr;
 	};
 
-	static Renderer2DData* s_Data;
+	static Renderer2DData s_Data;
 
 	void Renderer2D::Init()
 	{
 		ST_PROFILE_FUNCTION();
 
-		s_Data = new Renderer2DData();
-		s_Data->QuadVA = VertexArray::Create();
+		s_Data.QuadVertexArray = VertexArray::Create();
 
-		float quadVertices[] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
-		};
-
-		Ref<VertexBuffer> quadVB = VertexBuffer::Create(quadVertices, sizeof(quadVertices));
-		quadVB->SetLayout({
+		s_Data.QuadVertexBuffer = VertexBuffer::Create(s_Data.MaxVertices * sizeof(QuadVertex));
+		s_Data.QuadVertexBuffer->SetLayout({
 			{ ShaderDataType::Vec3f, "a_Position" },
+			{ ShaderDataType::Vec4f, "a_Color" },
 			{ ShaderDataType::Vec2f, "a_TexCoord" }
-		});
-		s_Data->QuadVA->AddVertexBuffer(quadVB);
+			});
+		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
-		uint32_t quadIndices[] = { 0, 1, 2, 2, 3, 0 };
+		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxVertices];
 
-		Ref<IndexBuffer> quadIB = IndexBuffer::Create(quadIndices, sizeof(quadIndices) / sizeof(uint32_t));
-		s_Data->QuadVA->SetIndexBuffer(quadIB);
+		uint32_t* quadIndices = new uint32_t[s_Data.MaxIndices];
 
-		s_Data->WhiteTexture = Texture2D::Create(1, 1);
+		uint32_t offset = 0;
+		for (uint32_t i = 0; i < s_Data.MaxIndices; i += 6)
+		{
+			quadIndices[i + 0] = offset + 0;
+			quadIndices[i + 1] = offset + 1;
+			quadIndices[i + 2] = offset + 2;
+
+			quadIndices[i + 3] = offset + 2;
+			quadIndices[i + 4] = offset + 3;
+			quadIndices[i + 5] = offset + 0;
+
+			offset += 4;
+		}
+
+		Ref<IndexBuffer> quadIB = IndexBuffer::Create(quadIndices, s_Data.MaxIndices);
+		s_Data.QuadVertexArray->SetIndexBuffer(quadIB);
+		delete[] quadIndices;
+
+		s_Data.WhiteTexture = Texture2D::Create(1, 1);
 		uint32_t whiteTextureData = 0xffffffff;
-		s_Data->WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
+		s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
-		s_Data->Shader = Shader::Create("assets/shaders/default2D.glsl");
-		s_Data->Shader->Bind();
-		s_Data->Shader->SetInt("u_Texture", 0);
+		s_Data.TextureShader = Shader::Create("assets/shaders/default2D.glsl");
+		s_Data.TextureShader->Bind();
+		s_Data.TextureShader->SetInt("u_Texture", 0);
 	}
 
-	void Renderer2D::ShutDown()
+	void Renderer2D::Shutdown()
 	{
 		ST_PROFILE_FUNCTION();
-
-		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthoCamera& camera)
 	{
 		ST_PROFILE_FUNCTION();
 
-		s_Data->Shader->Bind();
-		s_Data->Shader->SetMat4f("u_ViewProjection", camera.GetViewProjectionMatrix());
+		s_Data.TextureShader->Bind();
+		s_Data.TextureShader->SetMat4f("u_ViewProjection", camera.GetViewProjectionMatrix());
+
+		s_Data.QuadIndexCount = 0;
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 	}
 
 	void Renderer2D::EndScene()
 	{
 		ST_PROFILE_FUNCTION();
 
+		uint32_t dataSize = (uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase;
+		s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
+
+		Flush();
 	}
 
-	//////////////////////////////
-	// Regular Quads /////////////
-	//////////////////////////////
-
-	/* Untextured Quads */
-
-	void Renderer2D::DrawQuad(Quad& quad)
+	void Renderer2D::Flush()
 	{
-		DrawQuad({ quad.position.x, quad.position.y, 0.0f }, quad.size, quad.color);
+		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -108,58 +123,57 @@ namespace Saturn
 	{
 		ST_PROFILE_FUNCTION();
 
-		s_Data->Shader->SetVec4f("u_Color", color);
-		s_Data->WhiteTexture->Bind();
+		s_Data.QuadVertexBufferPtr->Position = position;
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr++;
 
-		glm::mat4 id = glm::mat4(1.0f);
+		s_Data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr++;
 
-		glm::mat4 transform = glm::translate(id, position) * glm::scale(id, { size.x, size.y, 1.0f });
-		s_Data->Shader->SetMat4f("u_Transform", transform);
+		s_Data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr++;
 
-		s_Data->QuadVA->Bind();
-		RenderCommand::DrawIndexed(s_Data->QuadVA);
+		s_Data.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadIndexCount += 6;
+
+		/*s_Data.TextureShader->SetFloat("u_TilingFactor", 1.0f);
+		s_Data.WhiteTexture->Bind();
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_Data.TextureShader->SetMat4("u_Transform", transform);
+		s_Data.QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);*/
 	}
 
-	/* Textured Quads */
-	
-	void Renderer2D::DrawQuad(Quad& quad, Ref<Texture> texture)
-	{
-		DrawQuad({ quad.position.x, quad.position.y, 0.0f }, quad.size, texture, quad.color);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& tint)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tint)
 	{
 		DrawQuad({ position.x, position.y, 0.0f }, size, texture, tint);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture, const glm::vec4& tint)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tint)
 	{
 		ST_PROFILE_FUNCTION();
 
-		s_Data->Shader->SetVec4f("u_Color", tint);
+		s_Data.TextureShader->SetVec4f("u_Color", tint);
 		texture->Bind();
 
-		glm::mat4 id = glm::mat4(1.0f);
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_Data.TextureShader->SetMat4f("u_Transform", transform);
 
-		glm::mat4 transform = glm::translate(id, position) * glm::scale(id, { size.x, size.y, 1.0f });
-		s_Data->Shader->SetMat4f("u_Transform", transform);
-
-
-		s_Data->QuadVA->Bind();
-		RenderCommand::DrawIndexed(s_Data->QuadVA);
+		s_Data.QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
 	}
 
-	//////////////////////////////
-	// Rotated Quads /////////////
-	//////////////////////////////
-	
-	/* Untextured Quads */
-
-	void Renderer2D::DrawRotatedQuad(Quad& quad, float rotation)
-	{
-		DrawRotatedQuad({ quad.position.x, quad.position.y, 0.0f }, quad.size, rotation, quad.color);
-	}
-	
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
 		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, color);
@@ -169,44 +183,37 @@ namespace Saturn
 	{
 		ST_PROFILE_FUNCTION();
 
-		s_Data->Shader->SetVec4f("u_Color", color);
-		s_Data->WhiteTexture->Bind();
+		s_Data.TextureShader->SetVec4f("u_Color", color);
+		s_Data.TextureShader->SetFloat("u_TilingFactor", 1.0f);
+		s_Data.WhiteTexture->Bind();
 
-		glm::mat4 id = glm::mat4(1.0f);
-
-		glm::mat4 transform = glm::translate(id, position) * glm::rotate(id, glm::radians(rotation), { 0.0f, 0.0f, 1.0f }) * glm::scale(id, { size.x, size.y, 1.0f });
-		s_Data->Shader->SetMat4f("u_Transform", transform);
-		
-		s_Data->QuadVA->Bind();
-		RenderCommand::DrawIndexed(s_Data->QuadVA);
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), rotation, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_Data.TextureShader->SetMat4f("u_Transform", transform);
+		s_Data.QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
 	}
 
-	void Renderer2D::DrawRotatedQuad(Quad& quad, Ref<Texture> texture, float rotation)
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& tint)
 	{
-		DrawRotatedQuad({ quad.position.x, quad.position.y, 0.0f }, quad.size, texture, rotation, quad.color);
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, texture, tint);
 	}
 
-	/* Textured Quads */
-
-	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
-	{
-		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, texture, rotation, tint);
-	}
-
-	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture>& texture, float rotation, const glm::vec4& tint)
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& tint)
 	{
 		ST_PROFILE_FUNCTION();
 
-		s_Data->Shader->SetVec4f("u_Color", tint);
+		s_Data.TextureShader->SetVec4f("u_Color", tint);
 		texture->Bind();
 
-		glm::mat4 id = glm::mat4(1.0f);
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), rotation, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_Data.TextureShader->SetMat4f("u_Transform", transform);
 
-		glm::mat4 transform = glm::translate(id, position) * glm::rotate(id, glm::radians(rotation), { 0.0f, 0.0f, 1.0f }) * glm::scale(id, { size.x, size.y, 1.0f });
-		s_Data->Shader->SetMat4f("u_Transform", transform);
-
-
-		s_Data->QuadVA->Bind();
-		RenderCommand::DrawIndexed(s_Data->QuadVA);
+		s_Data.QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
 	}
+
 }

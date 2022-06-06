@@ -18,7 +18,7 @@ namespace Saturn
 	void Renderer::ShutDown()
 	{
 		ST_PROFILE_FUNCTION();
-		Renderer2D::ShutDown();
+		Renderer2D::Shutdown();
 	}
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)

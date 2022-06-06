@@ -1,6 +1,6 @@
 newaction {
 	trigger = "delete",
-	description = "Remove all binaries and intermediate binaries, and project files.",
+	description = "Remove all project files.",
 	execute = function()
 		print("Removing binaries...")
 		os.rmdir("./bin")
@@ -22,7 +22,7 @@ newaction {
 
 newaction {
 	trigger = "clean",
-	description = "Remove all binaries and intermediate binaries, and project files.",
+	description = "Delete all binaries and intermediate binaries.",
 	execute = function()
 		print("Removing binaries...")
 		os.rmdir("./bin")
