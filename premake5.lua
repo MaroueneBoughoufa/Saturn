@@ -1,8 +1,5 @@
 include "./vendor/premake/premake_customization/solution_items.lua"
 include "./vendor/premake/premake_customization/actions.lua"
-include "dependencies.lua"
-
-require "vendor/premake/premake_customization/workspaces/vscode/vscode"
 
 workspace "SaturnEngine"
 	architecture "x86_64"
@@ -22,13 +19,5 @@ workspace "SaturnEngine"
 		"MultiProcessorCompile"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
-group "Dependencies"
-	include "Saturn/vendor/glfw"
-	include "Saturn/vendor/Glad"
-	include "Saturn/vendor/imgui"
-group ""
-
-include "Saturn"
+include "external.lua"
 include "Sandbox"
