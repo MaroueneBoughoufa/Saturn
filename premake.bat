@@ -1,2 +1,2 @@
 @echo off
-call vendor\premake\bin\premake5.exe %1
+call vendor\premake\bin\premake5.exe %*
