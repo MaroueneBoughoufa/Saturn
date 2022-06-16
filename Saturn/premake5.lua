@@ -16,6 +16,8 @@ project "Saturn"
 		"src/stpch.h",
 		"src/Saturn/**.cpp",
 		"src/Saturn/**.h",
+		"src/Platform/OpenGL/**.cpp",
+		"src/Platform/OpenGL/**.h",			
 		"vendor/stb_image/**.h",
 		"vendor/stb_image/**.cpp",
 		"vendor/glm/glm/**.hpp",
@@ -24,12 +26,12 @@ project "Saturn"
 	
 	includedirs {
 		"src",
-		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.stb}"
+		"vendor/spdlog/include",
+		"vendor/glm",
+		"vendor/glfw/include",
+		"vendor/Glad/include",
+		"vendor/imgui",
+		"vendor/stb_image"
 	}
 
 	links {
@@ -50,8 +52,6 @@ project "Saturn"
 		files {
 			"src/Platform/Windows/**.cpp",
 			"src/Platform/Windows/**.h",
-			"src/Platform/OpenGL/**.cpp",
-			"src/Platform/OpenGL/**.h",
 		}
 		
 
@@ -59,8 +59,6 @@ project "Saturn"
 		files {
 			"src/Platform/Linux/**.cpp",
 			"src/Platform/Linux/**.h",
-			"src/Platform/OpenGL/**.cpp",
-			"src/Platform/OpenGL/**.h",
 		}
 
 	filter "configurations:Debug"
