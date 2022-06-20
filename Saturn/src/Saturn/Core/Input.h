@@ -4,9 +4,11 @@
 #include "KeyCodes.h"
 #include "MouseCodes.h"
 
+#include <glm/glm.hpp>
+
 namespace Saturn
 {
-	class Input
+	/*class Input
 	{
 	protected:
 		Input() = default;
@@ -29,5 +31,16 @@ namespace Saturn
 		virtual float GetMouseYImpl() = 0;
 	private:
 		static Scope<Input> s_Instance;
+	};*/
+
+	class Input
+	{
+	public:
+		static bool IsKeyPressed(KeyCode key);
+		static bool IsMouseButtonPressed(MouseCode button);
+
+		static glm::vec2 GetMousePosition();
+		static float GetMouseX();
+		static float GetMouseY();
 	};
 }
