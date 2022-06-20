@@ -4,9 +4,9 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 
-IncludeDir["ImGui"] = "./Saturn/vendor/imgui"
-IncludeDir["glm"] = "./Saturn/vendor/glm/glm"
-IncludeDir["spdlog"] = "./Saturn/vendor/spdlog/include"
+IncludeDir["ImGui"] = "../Saturn/vendor/imgui"
+IncludeDir["glm"] = "../Saturn/vendor/glm/glm"
+IncludeDir["spdlog"] = "../Saturn/vendor/spdlog/include"
 
 group "Dependencies"
 	include "Saturn/vendor/glfw"
