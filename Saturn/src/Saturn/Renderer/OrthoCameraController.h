@@ -9,6 +9,15 @@
 
 namespace Saturn
 {
+	struct CameraBounds
+	{
+		float Left, Right;
+		float Bottom, Top;
+
+		float GetWidth() { return Right - Left; }
+		float GetHeight() { return Top - Bottom; }
+	};
+
 	class OrthoCameraController
 	{
 	public:
@@ -19,6 +28,11 @@ namespace Saturn
 
 		OrthoCamera& GetCamera() { return m_OrthoCamera; }
 		const OrthoCamera& GetCamera() const { return m_OrthoCamera; }
+
+		float GetZoomLevel() const { return m_ZoomLevel; }
+		void SetZoomLevel(float level) { m_ZoomLevel = level; }
+
+		const CameraBounds& GetBounds() const { return m_Bounds; }
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowResized(WindowResizeEvent& e);
@@ -26,6 +40,7 @@ namespace Saturn
 		float m_AspectRatio;
 		float m_ZoomLevel = 1.0f;
 		bool m_Rotation;
+		CameraBounds m_Bounds;
 		OrthoCamera m_OrthoCamera;
 
 		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
