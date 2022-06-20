@@ -15,8 +15,8 @@ project "Sandbox"
 	}
 	
 	includedirs {
-		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.glm}",
+		"../Saturn/vendor/spdlog/include",
+		"../Saturn/vendor/glm",
 		"../Saturn/vendor",
 		"../Saturn/src"
 	}

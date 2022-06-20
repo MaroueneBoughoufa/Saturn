@@ -5,7 +5,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 
 IncludeDir["ImGui"] = "../Saturn/vendor/imgui"
-IncludeDir["glm"] = "../Saturn/vendor/glm/glm"
+IncludeDir["glm"] = "../Saturn/vendor/glm"
 IncludeDir["spdlog"] = "../Saturn/vendor/spdlog/include"
 
 group "Dependencies"
