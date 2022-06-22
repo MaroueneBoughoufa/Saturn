@@ -29,7 +29,7 @@ namespace Saturn
 
 		Ref<VertexArray> QuadVertexArray;
 		Ref<VertexBuffer> QuadVertexBuffer;
-		Ref<Shader> Shader;
+		Ref<Shader> DefaultShader;
 		Ref<Texture2D> WhiteTexture;
 
 		uint32_t QuadIndexCount = 0;
@@ -92,9 +92,9 @@ namespace Saturn
 		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
 			samplers[i] = i;
 
-		s_Data.Shader = Shader::Create("assets/shaders/default2D.glsl");
-		s_Data.Shader->Bind();
-		s_Data.Shader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
+		s_Data.DefaultShader = Shader::Create("assets/shaders/default2D.glsl");
+		s_Data.DefaultShader->Bind();
+		s_Data.DefaultShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
 
 		// Set all texture slots to 0
 		s_Data.TextureSlots[0] = s_Data.WhiteTexture;
@@ -114,8 +114,8 @@ namespace Saturn
 	{
 		ST_PROFILE_FUNCTION();
 
-		s_Data.Shader->Bind();
-		s_Data.Shader->SetMat4f("u_ViewProjection", camera.GetViewProjectionMatrix());
+		s_Data.DefaultShader->Bind();
+		s_Data.DefaultShader->SetMat4f("u_ViewProjection", camera.GetViewProjectionMatrix());
 
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
@@ -238,6 +238,16 @@ namespace Saturn
 		s_Data.stats.QuadCount++;
 	}
 
+	/*void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<SubTexture2D>& Texture2D, const glm::vec4& tint = glm::vec4(1.0f), float tiling = 1.0f)
+	{
+
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<SubTexture2D>& Texture2D, const glm::vec4& tint = glm::vec4(1.0f), float tiling = 1.0f)
+	{
+
+	}*/
+
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
 		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, color);
@@ -324,6 +334,16 @@ namespace Saturn
 
 		s_Data.stats.QuadCount++;
 	}
+
+	/*void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, const glm::vec4& tint, float tilingFactor)
+	{
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, texture, tint, tilingFactor);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& texture, const glm::vec4& tint, float tilingFactor)
+	{
+
+	}*/
 
 	void Renderer2D::ResetStats()
 	{
