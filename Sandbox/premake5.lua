@@ -31,6 +31,14 @@ project "Sandbox"
 
 	systemversion "latest"
 
+	filter "system:linux"
+		links {
+			"glfw",
+			"glad",
+			"imgui",
+			"opengl32.lib"
+		}
+
 	filter "configurations:Debug"
 		defines "ST_DEBUG"
 		runtime "Debug"
