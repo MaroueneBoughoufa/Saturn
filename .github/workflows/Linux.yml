@@ -19,7 +19,10 @@ jobs:
 
       - name: Setup make and gcc
         run: sudo apt-get update && sudo apt install build-essential
-        
+
+      - name: Setup X11
+        run: apt-get install libx111-dev && apt-get install xorg-dev
+
       - name: Download premake
         uses: BEASTSM96/premake-action@v1.3
         
