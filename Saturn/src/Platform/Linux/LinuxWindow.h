@@ -1,9 +1,12 @@
 #pragma once
 
-#include "Saturn/Core.h"
+#include "Saturn/Core/Core.h"
 
 #ifdef ST_PLATFORM_LINUX
-#include "Saturn/Window.h"
+#include "Saturn/Core/Window.h"
+#include "Saturn/Renderer/RenderContext.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Saturn
 {
@@ -15,18 +18,21 @@ namespace Saturn
 
 		void OnUpdate() override;
 
-		inline unsigned int GetWidth() const override { return m_Data.Width; }
-		inline unsigned int GetHeight() const override { return m_Data.Height; }
+		unsigned int GetWidth() const override { return m_Data.Width; }
+		unsigned int GetHeight() const override { return m_Data.Height; }
 
 		// Window attributes
-		inline void SetEventCallBack(const EventCallbackFn& callback) override { m_Data.EventCallBack = callback; }
+		void SetEventCallBack(const EventCallbackFn& callback) override { m_Data.EventCallBack = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
+
+		inline virtual void* GetNativeWindow() const { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void ShutDown();
 	private:
 		GLFWwindow* m_Window;
+		Scope<RenderContext> m_Context;
 
 		struct WindowData
 		{

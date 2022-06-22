@@ -34,7 +34,7 @@
 	#error "Android is not supported!"
 #elif defined (__linux__)
 	#define ST_PLATFORM_LINUX
-	#error "Linux is not supported!"
+	#warning Saturn hasn't been tested on linux
 #endif
 // End Platform detection
 
