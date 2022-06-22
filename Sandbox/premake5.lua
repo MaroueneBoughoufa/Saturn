@@ -35,8 +35,7 @@ project "Sandbox"
 		links {
 			"glfw",
 			"glad",
-			"imgui",
-			"opengl32.lib"
+			"imgui"
 		}
 
 	filter "configurations:Debug"
