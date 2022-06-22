@@ -21,7 +21,7 @@ jobs:
         run: sudo apt-get update && sudo apt install build-essential
 
       - name: Setup X11
-        run: sudo apt-get install libx111-dev &&  sudo apt-get install xorg-dev
+        run: sudo apt-get install libx11-dev &&  sudo apt-get install xorg-dev
 
       - name: Download premake
         uses: BEASTSM96/premake-action@v1.3
