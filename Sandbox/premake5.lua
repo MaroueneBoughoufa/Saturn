@@ -31,13 +31,6 @@ project "Sandbox"
 
 	systemversion "latest"
 
-	filter "system:linux"
-		links {
-			"glfw",
-			"glad",
-			"imgui"
-		}
-
 	filter "configurations:Debug"
 		defines "ST_DEBUG"
 		runtime "Debug"

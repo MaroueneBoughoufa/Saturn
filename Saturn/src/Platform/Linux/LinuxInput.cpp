@@ -2,27 +2,30 @@
 #include "Saturn/Core/Core.h"
 
 #ifdef ST_PLATFORM_LINUX
-#include "Saturn/Core/Input.h"
-#include "Saturn/Core/Application.h"
+#include "LinuxInput.h"
+
+#include "Saturn/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Saturn
 {
-	bool Input::IsKeyPressed(KeyCode keycode)
+	Input* Input::s_Instance = new LinuxInput();
+
+	bool LinuxInput::IsKeyPressedImpl(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		auto state = glfwGetKey(window, (int)keycode);
+		auto state = glfwGetKey(window, keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool Input::IsMouseButtonPressed(MouseCode button)
+	bool LinuxInput::IsMouseButtonPressedImpl(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		auto state = glfwGetMouseButton(window, (int)button);
+		auto state = glfwGetMouseButton(window, button);
 		return state == GLFW_PRESS;
 	}
 
-	glm::vec2 Input::GetMousePosition()
+	std::pair<float, float> LinuxInput::GetMousePositionImpl()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xpos, ypos;
@@ -31,16 +34,16 @@ namespace Saturn
 		return { (float)xpos, (float)ypos };
 	}
 
-	float Input::GetMouseX()
+	float LinuxInput::GetMouseXImpl()
 	{
-		auto pos = GetMousePosition();
-		return pos.x;
+		auto [x, y] = GetMousePositionImpl();
+		return x;
 	}
-
-	float Input::GetMouseY()
+	
+	float LinuxInput::GetMouseYImpl()
 	{
-		auto pos = GetMousePosition();
-		return pos.y;
+		auto [x, y] = GetMousePositionImpl();
+		return y;
 	}
 }
 #endif

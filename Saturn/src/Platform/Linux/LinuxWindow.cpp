@@ -8,8 +8,6 @@
 #include "Saturn/Events/MouseEvent.h"
 #include "Saturn/Events/KeyEvent.h"
 
-#include "Saturn/Renderer/Renderer.h"
-
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Saturn
@@ -21,26 +19,23 @@ namespace Saturn
 		ST_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Scope<Window> Window::Create(const WindowProps& props)
+	Window* Window::Create(const WindowProps& props)
 	{
-		return CreateScope<LinuxWindow>(props);
+		return new LinuxWindow(props);
 	}
 
 	LinuxWindow::LinuxWindow(const WindowProps& props)
 	{
-		ST_PROFILE_FUNCTION();
 		Init(props);
 	}
 
 	LinuxWindow::~LinuxWindow()
 	{
-		ST_PROFILE_FUNCTION();
 		ShutDown();
 	}
 
 	void LinuxWindow::Init(const WindowProps& props)
 	{
-		ST_PROFILE_FUNCTION();
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -55,15 +50,8 @@ namespace Saturn
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 
-		{
-			ST_PROFILE_SCOPE("glfwCreateWindow");
-#ifdef ST_DEBUG
-			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
-				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
-#endif
-			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-			s_GLFWWindowCount++;
-		}
+		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		s_GLFWWindowCount++;
 
 		m_Context = CreateScope<OpenGLContext>(m_Window);
 		m_Context->Init();
@@ -161,7 +149,6 @@ namespace Saturn
 
 	void LinuxWindow::ShutDown()
 	{
-		ST_PROFILE_FUNCTION();
 		glfwDestroyWindow(m_Window);
 
 		if (--s_GLFWWindowCount == 0)
@@ -173,15 +160,12 @@ namespace Saturn
 
 	void LinuxWindow::OnUpdate()
 	{
-		ST_PROFILE_FUNCTION();
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void LinuxWindow::SetVSync(bool enabled)
 	{
-		ST_PROFILE_FUNCTION();
-
 		if (enabled)
 		{
 			glfwSwapInterval(1);
